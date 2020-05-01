@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300');
+
+* {
+  box-sizing: border-box;
+}
+
+
+body{
+    overflow: hidden;
+    /* background: #8abaae; */
+    background: #2e856e;
+}
+
+.login-container{
+    margin-top: 8%;
+    margin-bottom: 5%;
+}
+
+.logo-form{
+    padding: 5%;
+    background: #006a4e;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+.signin-container .logo-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-form .logo {
+    margin-bottom: 3vh;
+}
+
+.logo-form img {
+    width: 300px;
+}
+
+.logo-form .brand {
+    text-transform: uppercase;
+    color: #fff;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.brand h3 {
+    font-weight: 300;
+    font-size: 40px;
+}
+
+/* Login form */
+
+.login-form{
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    background: #fff;
+}
+
+.login-form h3{
+    text-align: center;
+    color: #006a4e;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.login-container form{
+    padding: 2%;
+}
+
+.login-form .btnsubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #006a4e;
+}
+
+.login-form .forgtpwd, .login-form .register{
+    color: #006a4e;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.form-control {
+    border-radius: 20px;
+    padding: 23px;
+}
+
+.btnsubmit {
+    width: 100%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+
+/* Register Class */
+.register_container {
+    padding-bottom: .5rem;
+}
+
+.register, .forgtpwd {
+    height: 2.7rem;
+    display: block;
+    border-radius: 2px;
+    font-weight: 500;
+    background: none;
+    color: #006a4e;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.register:hover, .forgtpwd:hover {
+    border-color: #006a4e;
+}
+
+@media(max-width: 900px) {
+    body {
+        overflow: auto;
+    }
+}
