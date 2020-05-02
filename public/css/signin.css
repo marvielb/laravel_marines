@@ -68,8 +68,8 @@ body{
     padding: 2%;
 }
 
-.login-form .btnsubmit{
-    font-weight: 600;
+.login-form .btnsubmit, .modal-footer .btn{
+    font-weight: 300;
     color: #fff;
     background-color: #006a4e;
 }
@@ -112,6 +112,22 @@ body{
 
 .register:hover, .forgtpwd:hover {
     border-color: #006a4e;
+}
+
+/* Modal */
+.modal-content .modal-header {
+    background-color: #006a4e;
+    color: #fff;
+}
+
+.modal-content .modal-header span{
+    color: #fff;
+}
+
+.modal-body .form-control {
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px 5px #e4e4e4;
+    background: #fff;
 }
 
 @media(max-width: 900px) {
