@@ -1,0 +1,47 @@
+
+body
+{
+    background: #2e856e;
+    font-family: 'Ropa Sans', sans-serif;
+    font-size: 16px;
+}
+
+
+.card {
+    border-radius: 2rem !important;
+}
+
+.card-title {
+    text-transform: uppercase;
+    font-size: 25px;
+    color: #006a4e;
+    font-weight: 600;
+    letter-spacing: .2rem;
+}
+
+.card .icon {
+    width: 203px;
+    height: 200px;
+    padding: 30px;
+    color: #a3a3a3;
+    border: none;
+    border-radius: 50%;
+    transition: color 1s, border 1s, width 2s,height 2s;
+}
+
+.icon:hover {
+    width: 253px;
+    height: 250px;
+    color: #2e856e;
+    border: 1px solid #2e856e;
+}
+
+.card .icon-header {
+    text-transform: uppercase;
+    color: #006a4e;
+    font-weight: 600;
+    font-size: 30px;
+    letter-spacing: .5rem;
+    padding-left: 1.5rem;
+}
+
