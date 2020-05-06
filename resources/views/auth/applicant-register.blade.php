@@ -3,7 +3,7 @@
 @section('login-content')
 
     <div class="container login-container">
-        <div class="row signin-container">
+        <div class="row signin-container" style="justify-content:center;">
             <!-- <div class="col-md-8 logo-form">
                 <div class="logo">
                     <img src="{{url('/img/marines.png')}}" alt="marines">
@@ -13,7 +13,7 @@
                 </div>
             </div> -->
 
-            <div class="col-md-4 login-form">
+            <div class="col-md-6 login-form">
                 <h3>Applicant Registration</h3>
 
                 <form method="POST" action="{{ url('/applicants') }}">
@@ -46,7 +46,7 @@
                     <div class="form-group">
                        <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon3">+63</span>
+                                <span style="border-top-left-radius: 1.25rem; border-bottom-left-radius: 1.25rem;" class="input-group-text" id="basic-addon3">+63</span>
                             </div>
                             <input type="text" class="form-control @error('mobileNumber') is-invalid @enderror" id="mobileNumber" name="mobileNumber" value="{{ old('mobileNumber') }}" required autocomplete="off" autofocus aria-describedby="basic-addon3">
                             @error('mobileNumber')
@@ -57,8 +57,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btnsubmit">
+                    <div style="margin-top: 2.5rem" class="form-group">
+                        <button style="height: 3.5rem;" type="submit" class="btn btn-primary btnsubmit">
                             {{ __('Register') }}
                         </button>
                     </div>

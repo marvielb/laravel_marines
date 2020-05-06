@@ -41,6 +41,7 @@ class ApplicantController extends Controller
             'lastName' => 'required',
             'mobileNumber' => 'required|numeric|digits:10'
         ]);
+        $validatedRequest['mobileNumber'] = "+63" . $validatedRequest['mobileNumber'];
         Applicant::create($validatedRequest);
         return view('auth.applicant-register');
     }
