@@ -4,58 +4,65 @@
 
     <div class="container login-container">
         <div class="row signin-container">
-            <div class="col-md-8 logo-form">
+            <!-- <div class="col-md-8 logo-form">
                 <div class="logo">
                     <img src="{{url('/img/marines.png')}}" alt="marines">
                 </div>
                 <div class="brand">
                     <h3>Marines Web-Based Examination System</h3>
                 </div>
-            </div>
-            <div class="col-md-4 login-form">
-                <h3>Login</h3>
+            </div> -->
 
-                <form method="POST" action="{{ route('login') }}">
+            <div class="col-md-4 login-form">
+                <h3>Applicant Registration</h3>
+
+                <form method="POST" action="{{ url('/applicants') }}">
                     @csrf
 
                     <div class="form-group">
-                        <input id="marinenum" type="text" class="form-control  @error('marinenum') is-invalid @enderror" name="marinenum" value="{{ old('marinenum') }}" required autocomplete="off" autofocus placeholder="Marines Serial No." />
-
-
-                        @error('marinenum')
+                        <input id="firstName" type="text" class="form-control  @error('firstName') is-invalid @enderror" name="firstName" value="{{ old('firstName') }}" required autocomplete="off" autofocus placeholder="First Name" />
+                        @error('firstName')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <input id="middleName" type="text" class="form-control  @error('middleName') is-invalid @enderror" name="middleName" value="{{ old('middleName') }}" required autocomplete="off" autofocus placeholder="Middle Name" />
+                        @error('middleName')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" required autocomplete="current-password" />
-
-
-                        @error('password')
+                        <input id="lastName" type="text" class="form-control  @error('lastName') is-invalid @enderror" name="lastName" value="{{ old('lastName') }}" required autocomplete="off" autofocus placeholder="Last Name" />
+                        @error('lastName')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
+                    <div class="form-group">
+                       <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">+63</span>
+                            </div>
+                            <input type="text" class="form-control @error('mobileNumber') is-invalid @enderror" id="mobileNumber" name="mobileNumber" value="{{ old('mobileNumber') }}" required autocomplete="off" autofocus aria-describedby="basic-addon3">
+                            @error('mobileNumber')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btnsubmit">
-                            {{ __('Login') }}
+                            {{ __('Register') }}
                         </button>
                     </div>
 
-                    <div class="form-group">
-                        {{-- <div class="row register_container">
-                            <a class="btn btn-link register" href="{{ route('register') }}">
-                                {{ __('Register') }}
-                            </a>
-                        </div> --}}
-                        <div class="row">
-                            <a class="btn btn-link forgtpwd" data-target="#forgotPass">
-                                {{ __('Forgot Your Password?') }}
-                            </a>
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>
