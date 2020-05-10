@@ -19,10 +19,10 @@
                     @csrf
 
                     <div class="form-group">
-                        <input id="marinenum" type="text" class="form-control  @error('marinenum') is-invalid @enderror" name="marinenum" value="{{ old('marinenum') }}" required autocomplete="off" autofocus placeholder="Marines Serial No." />
+                        <input id="marineNumber" type="text" class="form-control  @error('marineNumber') is-invalid @enderror" name="marineNumber" value="{{ old('marineNumber') }}" required autocomplete="off" autofocus placeholder="Marines Serial No." />
 
 
-                        @error('marinenum')
+                        @error('marineNumber')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
