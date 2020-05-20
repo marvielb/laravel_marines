@@ -5776,10 +5776,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 saveOperation.then(function () {
                   _this3.reloadPager();
 
-                  alertify.alert("Successfully Saved!");
+                  alertify.success("Successfully Saved!", 3);
                 })["catch"](function (result) {
-                  if (result.response) {
+                  if (result.response.data.errors) {
                     _this3.errors = result.response.data.errors;
+                  } else {
+                    alertify.error(result.response.data.message);
                   }
                 });
 
@@ -55993,6 +55995,7 @@ try {
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 window.alertify = __webpack_require__(/*! alertifyjs */ "./node_modules/alertifyjs/build/alertify.js");
+window.alertify.set("notifier", "position", "top-right");
 window.alertify.defaults.theme.ok = "btn btn-primary";
 window.alertify.defaults.theme.cancel = "btn btn-danger";
 window.alertify.defaults.theme.input = "form-control";

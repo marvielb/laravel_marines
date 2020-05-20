@@ -23,6 +23,7 @@ window.axios = require("axios");
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 window.alertify = require("alertifyjs");
+window.alertify.set("notifier", "position", "top-right");
 window.alertify.defaults.theme.ok = "btn btn-primary";
 window.alertify.defaults.theme.cancel = "btn btn-danger";
 window.alertify.defaults.theme.input = "form-control";

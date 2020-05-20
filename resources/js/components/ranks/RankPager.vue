@@ -114,11 +114,13 @@ export default {
             saveOperation
                 .then(() => {
                     this.reloadPager();
-                    alertify.alert("Successfully Saved!");
+                    alertify.success("Successfully Saved!", 3);
                 })
                 .catch(result => {
-                    if (result.response) {
+                    if (result.response.data.errors) {
                         this.errors = result.response.data.errors;
+                    } else {
+                        alertify.error(result.response.data.message);
                     }
                 });
         },
