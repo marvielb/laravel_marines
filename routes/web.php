@@ -22,3 +22,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/applicants', 'ApplicantController@create');
 Route::post('/applicants', 'ApplicantController@store');
+
+Route::resource('/ranks', 'RankController');

@@ -12,7 +12,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        factory(User::class)->create(['marineNumber' => '123']);
         factory(User::class, 10)->create();
-        //
     }
 }
