@@ -15,8 +15,8 @@
                 <span
                     style="margin-left: 10px;margin-right:10px; align-self:center;"
                     >{{ pagination_info.from }} - {{ pagination_info.to }} of
-                    {{ pagination_info.total }}</span
-                >
+                    {{ pagination_info.total }}
+                </span>
             </li>
             <li :class="['page-item', isNextPageNull ? 'disabled' : '']">
                 <button

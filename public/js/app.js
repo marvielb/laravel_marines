@@ -5712,13 +5712,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       actions: [{
         caption: "Edit",
-        className: "btn-warning",
+        class_name: "btn-warning",
         callback: function callback(row) {
           _this.onEditClick(row);
         }
       }, {
         caption: "Delete",
-        className: "btn-danger",
+        class_name: "btn-danger",
         callback: function callback(row) {
           axios["delete"](_this.endpoint + "/" + row.id).then(function () {
             _this.reloadPager();
@@ -5825,17 +5825,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   computed: {
-    //Todo: Convert into watch property
-    checkForm: function checkForm() {
-      var isValid = true;
-      this.errors = {};
-
-      if (this.form_model.description.length === 0) {
-        this.errors["description"] = ["This field is required"].concat(_toConsumableArray(this.errors["description"] || []));
-        isValid = false;
-      }
-
-      return isValid;
+    is_form_valid: function is_form_valid() {
+      return Object.keys(this.errors).length === 0;
     },
     api_endpoint: function api_endpoint() {
       return "/api" + this.endpoint;
@@ -5845,6 +5836,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     form_model: {
       handler: function handler() {
         this.is_form_dirty = true;
+        this.errors = {};
+
+        if (this.form_model["description"].length === 0) {
+          this.errors["description"] = ["This field is required"].concat(_toConsumableArray(this.errors["description"] || []));
+        }
       },
       deep: true
     }
@@ -5899,21 +5895,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     contents: function contents() {
-      return this.endPointResponse.data;
+      return this.endpoint_response.data;
     },
     pagination_info: function pagination_info() {
       return {
-        prev_page_url: this.endPointResponse.prev_page_url,
-        next_page_url: this.endPointResponse.next_page_url,
-        from: this.endPointResponse.from,
-        to: this.endPointResponse.to,
-        total: this.endPointResponse.total
+        prev_page_url: this.endpoint_response.prev_page_url,
+        next_page_url: this.endpoint_response.next_page_url,
+        from: this.endpoint_response.from,
+        to: this.endpoint_response.to,
+        total: this.endpoint_response.total
       };
     }
   },
   data: function data() {
     return {
-      endPointResponse: Object
+      endpoint_response: Object
     };
   },
   methods: {
@@ -5921,7 +5917,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get(url).then(function (res) {
-        _this.endPointResponse = res.data;
+        _this.endpoint_response = res.data;
       });
     },
     reload: function reload() {
@@ -6137,7 +6133,7 @@ __webpack_require__.r(__webpack_exports__);
     actions: Array
   },
   computed: {
-    isActionsEmpty: function isActionsEmpty() {
+    is_actions_empty: function is_actions_empty() {
       return this.actions.length === 0;
     }
   }
@@ -43352,7 +43348,7 @@ var render = function() {
             attrs: {
               show: _vm.form_visible,
               title: "Rank Form",
-              disabled_save: _vm.checkForm === false
+              disabled_save: _vm.is_form_valid === false
             },
             on: { saveClick: _vm.onSaveClick, closeClick: _vm.onCloseClick }
           },
@@ -43639,7 +43635,8 @@ var render = function() {
                 " - " +
                 _vm._s(_vm.pagination_info.to) +
                 " of\n                " +
-                _vm._s(_vm.pagination_info.total)
+                _vm._s(_vm.pagination_info.total) +
+                "\n            "
             )
           ]
         )
@@ -43702,7 +43699,7 @@ var render = function() {
             ])
           }),
           _vm._v(" "),
-          _vm.isActionsEmpty == false
+          _vm.is_actions_empty == false
             ? _c("th", [_vm._v("\n                ACTIONS\n            ")])
             : _vm._e()
         ],
@@ -43727,7 +43724,7 @@ var render = function() {
               ])
             }),
             _vm._v(" "),
-            _vm.isActionsEmpty == false
+            _vm.is_actions_empty == false
               ? _c(
                   "td",
                   { staticClass: "action" },
@@ -43736,7 +43733,7 @@ var render = function() {
                       "button",
                       {
                         key: index,
-                        class: ["btn", action.className],
+                        class: ["btn", action.class_name],
                         on: {
                           click: function($event) {
                             return action.callback(content)

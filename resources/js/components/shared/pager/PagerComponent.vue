@@ -31,27 +31,27 @@ export default {
     },
     computed: {
         contents: function() {
-            return this.endPointResponse.data;
+            return this.endpoint_response.data;
         },
         pagination_info: function() {
             return {
-                prev_page_url: this.endPointResponse.prev_page_url,
-                next_page_url: this.endPointResponse.next_page_url,
-                from: this.endPointResponse.from,
-                to: this.endPointResponse.to,
-                total: this.endPointResponse.total
+                prev_page_url: this.endpoint_response.prev_page_url,
+                next_page_url: this.endpoint_response.next_page_url,
+                from: this.endpoint_response.from,
+                to: this.endpoint_response.to,
+                total: this.endpoint_response.total
             };
         }
     },
     data() {
         return {
-            endPointResponse: Object
+            endpoint_response: Object
         };
     },
     methods: {
         load: function(url) {
             axios.get(url).then(res => {
-                this.endPointResponse = res.data;
+                this.endpoint_response = res.data;
             });
         },
         reload: function() {

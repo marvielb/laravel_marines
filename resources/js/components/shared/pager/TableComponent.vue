@@ -8,7 +8,7 @@
                 >
                     {{ headers[headerKey] }}
                 </th>
-                <th v-if="isActionsEmpty == false">
+                <th v-if="is_actions_empty == false">
                     ACTIONS
                 </th>
             </tr>
@@ -21,12 +21,12 @@
                 >
                     {{ content[headerkey] }}
                 </td>
-                <td class="action" v-if="isActionsEmpty == false">
+                <td class="action" v-if="is_actions_empty == false">
                     <button
                         v-for="(action, index) in actions"
                         :key="index"
                         v-on:click="action.callback(content)"
-                        v-bind:class="['btn', action.className]"
+                        v-bind:class="['btn', action.class_name]"
                     >
                         {{ action.caption }}
                     </button>
@@ -41,13 +41,13 @@ export default {
     props: {
         headers: Object,
         contents: Array,
-        actions: Array,
+        actions: Array
     },
     computed: {
-        isActionsEmpty: function () {
+        is_actions_empty: function() {
             return this.actions.length === 0;
-        },
-    },
+        }
+    }
 };
 </script>
 

@@ -13,7 +13,7 @@
             <PagerFormComponent
                 :show="form_visible"
                 :title="'Rank Form'"
-                :disabled_save="checkForm === false"
+                :disabled_save="is_form_valid === false"
                 @saveClick="onSaveClick"
                 @closeClick="onCloseClick"
             >
@@ -64,14 +64,14 @@ export default {
             actions: [
                 {
                     caption: "Edit",
-                    className: "btn-warning",
+                    class_name: "btn-warning",
                     callback: row => {
                         this.onEditClick(row);
                     }
                 },
                 {
                     caption: "Delete",
-                    className: "btn-danger",
+                    class_name: "btn-danger",
                     callback: row => {
                         axios.delete(this.endpoint + "/" + row.id).then(() => {
                             this.reloadPager();
@@ -147,18 +147,8 @@ export default {
         }
     },
     computed: {
-        //Todo: Convert into watch property
-        checkForm: function() {
-            let isValid = true;
-            this.errors = {};
-            if (this.form_model.description.length === 0) {
-                this.errors["description"] = [
-                    "This field is required",
-                    ...(this.errors["description"] || [])
-                ];
-                isValid = false;
-            }
-            return isValid;
+        is_form_valid: function() {
+            return Object.keys(this.errors).length === 0;
         },
         api_endpoint: function() {
             return "/api" + this.endpoint;
@@ -168,6 +158,13 @@ export default {
         form_model: {
             handler: function() {
                 this.is_form_dirty = true;
+                this.errors = {};
+                if (this.form_model["description"].length === 0) {
+                    this.errors["description"] = [
+                        "This field is required",
+                        ...(this.errors["description"] || [])
+                    ];
+                }
             },
             deep: true
         }
