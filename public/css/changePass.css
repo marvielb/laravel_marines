@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+
+body {
+    overflow: hidden;
+    /* background: #8abaae; */
+    background: #2e856e;
+}
+
+.card-body .card-title {
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.forms {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 50px;
+}
+
+
+.forms label {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    padding-right: 2em;
+    height: 20px;
+    width: 200px;
+    margin-top: 24px;
+    margin-left: 10px;
+    text-align: right;
+    margin-right:15px;
+    float:left;
+    white-space: nowrap;
+}
+
+.forms input {
+    width: 287px;
+    margin-top: 10px;
+}
+
+.btn_changePass {
+    background-color: #006a4e;
+    color: white;
+}
+
+.note_container {
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+@media(max-width: 1020px) {
+    body {
+        overflow: scroll;
+    }
+
+    .forms {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        height: 50px;
+    }
+
+    .forms label {
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 600;
+        padding-right: 0;
+        height: 20px;
+        width: inherit;
+        text-align: left;
+        margin-top: 10px;
+        margin-left: 20px;
+        margin-bottom: 0;
+    }
+
+    .forms input {
+        width: 180px;
+    }
+
+    .note_container {
+        padding-top: 10px;
+    }
+
+    .button_container {
+        padding-top: 10px;
+    }
+}
