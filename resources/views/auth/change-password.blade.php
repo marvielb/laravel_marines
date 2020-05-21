@@ -12,7 +12,7 @@
                             @csrf
 
                             @foreach ($errors->all() as $error)
-                                <p class="text-danger">{{ $error }}</p>
+                                <p class="alert alert-danger">{{ $error }}</p>
                             @endforeach 
 
                             <div class="row">
