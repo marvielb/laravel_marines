@@ -24,10 +24,10 @@ class ChangePasswordController extends Controller
     public function changePassword(Request $request)
     {
        $request->validate([
-           'oldPassword'    => ['required', new MatchOldPassword],
-           'newPassword'    => ['required', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', 'different:oldPassword'],
+           'oldPassword'        => ['required', new MatchOldPassword],
+           'newPassword'        => ['required', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', 'different:oldPassword'],
+           'currentNewPassword' => ['required_with:password', 'min:8'],
         //    'newPassword'    => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|different:oldPassword',
-           'curNewPassword' => ['required_with:password', 'min:8'],
         ]);
 
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->newPassword)]);

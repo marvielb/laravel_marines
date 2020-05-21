@@ -34,8 +34,8 @@
                             <div class="row">
                                 <div class="col-md-12 cur_password_container">
                                     <div class="form-group forms">
-                                        <label for=curNewPassword> Current New Password : </label>
-                                        <input type="password" name="curNewPassword" id="curNewPassword" class="form-control" autocomplete="oldPassword">
+                                        <label for=currentNewPassword> Current New Password : </label>
+                                        <input type="password" name="currentNewPassword" id="currentNewPassword" class="form-control" autocomplete="oldPassword">
                                     </div>
                                 </div>
                             </div>
