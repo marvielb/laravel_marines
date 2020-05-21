@@ -14,15 +14,15 @@ use App\Http\Middleware\CheckChangePass;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 //  IF USER IS NOT LOGIN!
 Route::middleware(['preventbackbutton','guest'])->group(function() {
 
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    
     Route::get('/applicants', 'ApplicantController@create');
     Route::post('/applicants', 'ApplicantController@store');
     
@@ -30,9 +30,18 @@ Route::middleware(['preventbackbutton','guest'])->group(function() {
 
 // IF USER IS LOGIN!
 Route::middleware(['preventbackbutton','auth'])->group(function(){
-    
-    Route::get('/change_password', 'ChangePasswordController@ChangePass')->name('password');
+   
+    // HOME
     Route::get('/home', 'HomeController@index')->name('home')->middleware(CheckChangePass::class);
+
+    // FOR LOGOUT 
+    Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+    
+    // CHANGE PASSWORD
+    Route::get('/change_password', 'ChangePasswordController@viewChangePass')->name('password');
+    Route::post('/change_password', 'ChangePasswordController@changePassword');
+
     Route::resource('/ranks', 'RankController');
     
 });
