@@ -35,7 +35,16 @@
                         v-if="isFormControlValid('description') == false"
                         class="invalid-feedback"
                     >
-                        {{ getErrorMessages("description")[0] }}
+                        <ul>
+                            <li
+                                v-for="(error, index) in getErrorMessages(
+                                    'description'
+                                )"
+                                :key="index"
+                            >
+                                {{ error }}
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </PagerFormComponent>
@@ -73,7 +82,7 @@ export default {
                     caption: "Delete",
                     class_name: "btn-danger",
                     callback: row => {
-                        axios.delete(this.endpoint + "/" + row.id).then(() => {
+                        axios.delete(`${this.endpoint}/${row.id}`).then(() => {
                             this.reloadPager();
                         });
                     }
@@ -134,7 +143,7 @@ export default {
             this.showForm();
         },
         onEditClick: function(row) {
-            axios.get(this.api_endpoint + "/" + row.id).then(result => {
+            axios.get(`${this.api_endpoint}/${row.id}`).then(result => {
                 this.is_edit = true;
                 this.edit_id = row.id;
                 this.form_model = result.data;

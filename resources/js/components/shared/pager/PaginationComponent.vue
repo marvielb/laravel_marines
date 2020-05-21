@@ -1,7 +1,7 @@
 <template>
     <nav aria-label="...">
         <ul class="pagination">
-            <li :class="['page-item', isPrevPageNull ? 'disabled' : '']">
+            <li :class="['page-item', is_prev_page_null ? 'disabled' : '']">
                 <button
                     class="page-link"
                     @click="
@@ -18,7 +18,7 @@
                     {{ pagination_info.total }}
                 </span>
             </li>
-            <li :class="['page-item', isNextPageNull ? 'disabled' : '']">
+            <li :class="['page-item', is_next_page_null ? 'disabled' : '']">
                 <button
                     class="page-link"
                     @click="
@@ -35,10 +35,10 @@
 <script>
 export default {
     computed: {
-        isPrevPageNull: function() {
+        is_prev_page_null: function() {
             return this.pagination_info.prev_page_url == null;
         },
-        isNextPageNull: function() {
+        is_next_page_null: function() {
             return this.pagination_info.next_page_url == null;
         }
     },

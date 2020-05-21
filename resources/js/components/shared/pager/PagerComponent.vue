@@ -50,9 +50,14 @@ export default {
     },
     methods: {
         load: function(url) {
-            axios.get(url).then(res => {
-                this.endpoint_response = res.data;
-            });
+            axios
+                .get(url)
+                .then(res => {
+                    this.endpoint_response = res.data;
+                })
+                .catch(res => {
+                    alertify.error(res.response.data.message);
+                });
         },
         reload: function() {
             this.load(this.endpoint);

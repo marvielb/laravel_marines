@@ -18,5 +18,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/ranks', 'RankController@pagination');
-Route::get('/ranks/{rank}', 'RankController@edit');
