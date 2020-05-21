@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\CheckChangePass;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,19 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/applicants', 'ApplicantController@create');
-Route::post('/applicants', 'ApplicantController@store');
+//  IF USER IS NOT LOGIN!
+Route::middleware(['preventbackbutton','guest'])->group(function() {
 
-Route::resource('/ranks', 'RankController');
+    Route::get('/applicants', 'ApplicantController@create');
+    Route::post('/applicants', 'ApplicantController@store');
+    
+});
+
+// IF USER IS LOGIN!
+Route::middleware(['preventbackbutton','auth'])->group(function(){
+    
+    Route::get('/change_password', 'ChangePasswordController@ChangePass')->name('password');
+    Route::get('/home', 'HomeController@index')->name('home')->middleware(CheckChangePass::class);
+    Route::resource('/ranks', 'RankController');
+    
+});
