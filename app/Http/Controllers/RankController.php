@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Rank;
 use Illuminate\Http\Request;
+use Pager;
 
 class RankController extends Controller
 {
+
+    use Pager;
+
+    public function tableName()
+    {
+        return 'ranks';
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,11 +30,6 @@ class RankController extends Controller
     public function index()
     {
         return view('rank.index');
-    }
-
-    public function Pagination()
-    {
-        return Rank::orderBy('id','desc')->paginate(10);
     }
 
     /**

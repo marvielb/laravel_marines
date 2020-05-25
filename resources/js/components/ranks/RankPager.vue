@@ -34,126 +34,37 @@
 import PagerComponent from "../shared/pager/PagerComponent.vue";
 import PagerFormComponent from "../shared/pager/PagerFormComponent";
 import InputComponent from "../shared/forms/InputComponent";
+import PagerFormMixin from "../../mixins/PagerFormMixin";
+import EditActionMixin from "../../mixins/EditActionMixin";
+import PagerMixin from "../../mixins/PagerMixin";
+import AddButtonMixin from "../../mixins/AddButtonMixin";
+import DeleteActionMixin from "../../mixins/DeleteActionMixin";
 
 export default {
+    mixins: [
+        PagerMixin,
+        PagerFormMixin,
+        EditActionMixin,
+        DeleteActionMixin,
+        AddButtonMixin
+    ],
     data() {
         return {
-            child_bus: new Vue(),
             form_model: {
-                description: "",
-                h3h3: ""
+                description: ""
             },
-            is_form_dirty: false,
-            is_edit: false,
-            edit_id: 0,
-            errors: {},
-            form_visible: false,
             endpoint: "/ranks",
-            headers: { description: "DESCRIPTION" },
-            actions: [
-                {
-                    caption: "Edit",
-                    class_name: "btn-warning",
-                    callback: row => {
-                        this.onEditClick(row);
-                    }
-                },
-                {
-                    caption: "Delete",
-                    class_name: "btn-danger",
-                    callback: row => {
-                        axios.delete(`${this.endpoint}/${row.id}`).then(() => {
-                            this.reloadPager();
-                        });
-                    }
-                }
-            ]
+            headers: { description: "DESCRIPTION" }
         };
     },
     methods: {
-        showForm: function() {
-            this.form_visible = true;
-        },
-        hideForm: function() {
-            this.form_visible = false;
-        },
-        clearForm: function() {
-            this.is_form_dirty = false;
-            Object.keys(this.form_model).forEach(v => {
-                this.form_model[v] = "";
-            });
-        },
-        getErrorMessages: function(name) {
-            return this.errors[name];
-        },
-        onSaveClick: async function() {
-            let saveOperation = () => {};
-            if (this.is_edit) {
-                saveOperation = axios.patch(
-                    this.endpoint + "/" + this.edit_id,
-                    this.form_model
-                );
-            } else {
-                saveOperation = axios.post(this.endpoint, this.form_model);
+        validateForm: function() {
+            if (this.form_model["description"].length === 0) {
+                this.errors["description"] = [
+                    "This field is required",
+                    ...(this.errors["description"] || [])
+                ];
             }
-            saveOperation
-                .then(() => {
-                    this.reloadPager();
-                    alertify.success("Successfully Saved!", 3);
-                })
-                .catch(result => {
-                    if (result.response.data.errors) {
-                        this.errors = result.response.data.errors;
-                    } else {
-                        alertify.error(result.response.data.message);
-                    }
-                });
-        },
-        onCloseClick: function() {
-            this.clearForm();
-            this.hideForm();
-        },
-        onAddClick: function(row) {
-            this.is_form_dirty = false;
-            this.is_edit = false;
-            this.showForm();
-        },
-        onEditClick: function(row) {
-            axios.get(`${this.api_endpoint}/${row.id}`).then(result => {
-                this.is_edit = true;
-                this.edit_id = row.id;
-                this.form_model = result.data;
-                this.is_form_dirty = true;
-                this.showForm();
-            });
-        },
-        reloadPager: function() {
-            this.child_bus.$emit("reload");
-            this.clearForm();
-            this.hideForm();
-        }
-    },
-    computed: {
-        is_form_valid: function() {
-            return Object.keys(this.errors).length === 0;
-        },
-        api_endpoint: function() {
-            return "/api" + this.endpoint;
-        }
-    },
-    watch: {
-        form_model: {
-            handler: function(val, oldVal) {
-                this.is_form_dirty = true;
-                this.errors = {};
-                if (this.form_model["description"].length === 0) {
-                    this.errors["description"] = [
-                        "This field is required",
-                        ...(this.errors["description"] || [])
-                    ];
-                }
-            },
-            deep: true
         }
     },
     components: { PagerComponent, PagerFormComponent, InputComponent }
