@@ -18,34 +18,12 @@
                 @closeClick="onCloseClick"
             >
                 <div class="form-group">
-                    <label for="rankdesc">Description</label>
-                    <input
-                        type="text"
-                        :class="[
-                            'form-control',
-                            is_form_dirty == false
-                                ? ''
-                                : isFormControlValid('description')
-                                ? 'is-valid'
-                                : 'is-invalid'
-                        ]"
-                        v-model="form_model.description"
+                    <InputComponent
+                        :label="'Description'"
+                        :is_validation_enabled="is_form_dirty"
+                        :error_messages="getErrorMessages('description')"
+                        v-bind:model.sync="form_model.description"
                     />
-                    <div
-                        v-if="isFormControlValid('description') == false"
-                        class="invalid-feedback"
-                    >
-                        <ul>
-                            <li
-                                v-for="(error, index) in getErrorMessages(
-                                    'description'
-                                )"
-                                :key="index"
-                            >
-                                {{ error }}
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </PagerFormComponent>
         </div>
@@ -55,13 +33,15 @@
 <script>
 import PagerComponent from "../shared/pager/PagerComponent.vue";
 import PagerFormComponent from "../shared/pager/PagerFormComponent";
+import InputComponent from "../shared/forms/InputComponent";
 
 export default {
     data() {
         return {
             child_bus: new Vue(),
             form_model: {
-                description: ""
+                description: "",
+                h3h3: ""
             },
             is_form_dirty: false,
             is_edit: false,
@@ -103,15 +83,11 @@ export default {
                 this.form_model[v] = "";
             });
         },
-        isFormControlValid: function(name) {
-            return this.errors[name] ? false : true;
-        },
         getErrorMessages: function(name) {
             return this.errors[name];
         },
         onSaveClick: async function() {
             let saveOperation = () => {};
-            if (this.checkForm == false) return;
             if (this.is_edit) {
                 saveOperation = axios.patch(
                     this.endpoint + "/" + this.edit_id,
@@ -167,7 +143,7 @@ export default {
     },
     watch: {
         form_model: {
-            handler: function() {
+            handler: function(val, oldVal) {
                 this.is_form_dirty = true;
                 this.errors = {};
                 if (this.form_model["description"].length === 0) {
@@ -180,6 +156,6 @@ export default {
             deep: true
         }
     },
-    components: { PagerComponent, PagerFormComponent }
+    components: { PagerComponent, PagerFormComponent, InputComponent }
 };
 </script>
