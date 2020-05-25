@@ -1,18 +1,8 @@
 <template>
     <div>
         <label>{{ label }}</label>
-        <input
-            type="text"
-            :class="[
-                'form-control',
-                is_validation_enabled == false
-                    ? ''
-                    : is_valid
-                    ? 'is-valid'
-                    : 'is-invalid'
-            ]"
-            v-model="modelLocal"
-        />
+        <!-- <input type="text" :class="classes" v-model="modelLocal" /> -->
+        <slot v-bind:classes="classes"></slot>
         <div v-if="is_valid == false" class="invalid-feedback">
             <ul>
                 <li v-for="(error, index) in error_messages" :key="index">
@@ -31,13 +21,15 @@ export default {
                 ? this.error_messages.length === 0
                 : true;
         },
-        modelLocal: {
-            get: function() {
-                return this.model;
-            },
-            set: function(value) {
-                this.$emit("update:model", value);
-            }
+        classes: function() {
+            return [
+                "form-control",
+                this.is_validation_enabled == false
+                    ? ""
+                    : this.is_valid
+                    ? "is-valid"
+                    : "is-invalid"
+            ];
         }
     },
     props: {

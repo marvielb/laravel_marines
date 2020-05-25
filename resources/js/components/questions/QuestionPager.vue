@@ -12,23 +12,19 @@
             />
             <PagerFormComponent
                 :show="form_visible"
-                :title="'Rank Form'"
+                :title="'Question Form'"
                 :disabled_save="is_form_valid === false"
                 @saveClick="onSaveClick"
                 @closeClick="onCloseClick"
             >
                 <div class="form-group">
                     <InputComponent
-                        :label="'Description'"
+                        :label="'Question'"
                         :is_validation_enabled="is_form_dirty"
-                        :error_messages="getErrorMessages('description')"
+                        :error_messages="getErrorMessages('body')"
                         v-slot="{ classes }"
                     >
-                        <input
-                            type="text"
-                            :class="classes"
-                            v-model="form_model.description"
-                        />
+                        <textarea :class="classes" v-model="form_model.body" />
                     </InputComponent>
                 </div>
             </PagerFormComponent>
@@ -57,18 +53,27 @@ export default {
     data() {
         return {
             form_model: {
-                description: ""
+                body: ""
             },
-            endpoint: "/ranks",
-            headers: { description: "DESCRIPTION" }
+            endpoint: "/questions",
+            headers: { body: "QUESTION" },
+            actions: [
+                {
+                    caption: "Choices",
+                    class_name: "btn-secondary",
+                    callback: row => {
+                        console.log(row);
+                    }
+                }
+            ]
         };
     },
     methods: {
         validateForm: function() {
-            if (this.form_model["description"].length === 0) {
-                this.errors["description"] = [
+            if (this.form_model["body"].length === 0) {
+                this.errors["body"] = [
                     "This field is required",
-                    ...(this.errors["description"] || [])
+                    ...(this.errors["body"] || [])
                 ];
             }
         }

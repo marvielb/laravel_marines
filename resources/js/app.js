@@ -20,13 +20,13 @@ window.Vue = require("vue");
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component(
-    "example-component",
-    require("./components/ExampleComponent.vue").default
+    "rank-pager",
+    require("./components/ranks/RankPager.vue").default
 );
 
 Vue.component(
-    "rank-pager",
-    require("./components/ranks/RankPager.vue").default
+    "question-pager",
+    require("./components/questions/QuestionPager.vue").default
 );
 
 /**
