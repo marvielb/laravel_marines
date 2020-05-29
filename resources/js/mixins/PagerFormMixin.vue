@@ -7,8 +7,7 @@ export default {
             is_edit: false,
             edit_id: 0,
             errors: {},
-            form_visible: false,
-            endpoint: "/abcd"
+            form_visible: false
         };
     },
     methods: {

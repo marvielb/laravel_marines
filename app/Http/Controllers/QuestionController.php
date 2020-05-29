@@ -96,4 +96,9 @@ class QuestionController extends Controller
     {
         $question->delete();
     }
+
+    public function correctAnswer(Question $question)
+    {
+        return $question->correctChoice;
+    }
 }

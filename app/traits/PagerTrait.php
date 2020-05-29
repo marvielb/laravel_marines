@@ -8,9 +8,20 @@ trait Pager
         return '';
     }
 
-    public function Pagination()
+    public function query()
     {
         $tablename = $this->tableName();
-        return DB::table($tablename)->orderBy('id','desc')->paginate(10);
+        return DB::table($tablename)->orderBy($tablename.'.id','desc');
     }
+
+    public function Paginate($query) {
+        return $query->paginate(10);
+    }
+
+    public function Pagination()
+    {
+        return $this->Paginate($this->query());
+    }
+
+
 }

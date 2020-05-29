@@ -49,5 +49,15 @@ Route::middleware(['preventbackbutton','auth'])->group(function(){
     Route::resource('/questions', 'QuestionController');
     Route::get('/api/questions', 'QuestionController@pagination');
     Route::get('/api/questions/{question}', 'QuestionController@edit');
+    Route::get('/api/questions/{question}/answer', 'QuestionController@correctAnswer');
+
+
+    Route::get('/questions/{question}/choices', 'ChoiceController@index');
+    Route::post('/questions/{questionId}/choices', 'ChoiceController@store');
+    Route::patch('/questions/{questionId}/choices/{choice}', 'ChoiceController@update');
+    Route::delete('/questions/{questionId}/choices/{choice}', 'ChoiceController@destroy');
+    Route::get('/api/questions/{questionId}/choices', 'ChoiceController@pagination');
+    Route::get('/api/questions/{questionId}/choices/{choice}', 'ChoiceController@edit');
+    Route::patch('/api/questions/{question}/choices/{choice}/correct', 'ChoiceController@setAsCorrectAnswer');
 
 });
