@@ -60,4 +60,8 @@ Route::middleware(['preventbackbutton','auth'])->group(function(){
     Route::get('/api/questions/{questionId}/choices/{choice}', 'ChoiceController@edit');
     Route::patch('/api/questions/{question}/choices/{choice}/correct', 'ChoiceController@setAsCorrectAnswer');
 
+
+    Route::resource('/questiongroups', 'QuestionGroupController');
+    Route::get('/api/questiongroups', 'QuestionGroupController@pagination');
+    Route::get('/api/questiongroups/{questiongroup}', 'QuestionGroupController@edit');
 });
