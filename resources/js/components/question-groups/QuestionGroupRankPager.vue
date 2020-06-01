@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row justify-content-end">
-            <button class="btn btn-primary mb-3" @click="onAddClick()">
+            <button class="btn btn-primary mb-3" @click="onAddGroupRankClick()">
                 Add
             </button>
             <PagerComponent
@@ -12,23 +12,28 @@
             />
             <PagerFormComponent
                 :show="form_visible"
-                :title="'Rank Form'"
+                :title="'Add New Rank'"
                 :disabled_save="is_form_valid === false"
                 @saveClick="onSaveClick"
                 @closeClick="onCloseClick"
             >
                 <div class="form-group">
                     <InputComponent
-                        :label="'Description'"
+                        :label="'Rank'"
                         :is_validation_enabled="is_form_dirty"
-                        :error_messages="getErrorMessages('description')"
-                        v-slot="{ classes }"
+                        :error_messages="getErrorMessages('rank_id')"
                     >
-                        <input
-                            type="text"
-                            :class="classes"
-                            v-model="form_model.description"
-                        />
+                        <select
+                            class="custom-select"
+                            v-model="form_model.rank_id"
+                        >
+                            <option
+                                v-for="rank in available_ranks"
+                                :key="rank.id"
+                                :value="rank.id"
+                                >{{ rank.description }}</option
+                            >
+                        </select>
                     </InputComponent>
                 </div>
             </PagerFormComponent>
@@ -47,42 +52,36 @@ import AddButtonMixin from "../../mixins/AddButtonMixin";
 import DeleteActionMixin from "../../mixins/DeleteActionMixin";
 
 export default {
-    mixins: [
-        PagerMixin,
-        PagerFormMixin,
-        EditActionMixin,
-        DeleteActionMixin,
-        AddButtonMixin
-    ],
+    mixins: [PagerMixin, PagerFormMixin, DeleteActionMixin, AddButtonMixin],
+    props: ["questionGroupId"],
     data() {
         return {
             form_model: {
-                description: ""
+                rank_id: ""
             },
-            endpoint: "/questiongroups",
             headers: { description: "DESCRIPTION" },
-            actions: [
-                {
-                    caption: "Tag Ranks",
-                    class_name: "btn-secondary",
-                    callback: row => {
-                        this.onTagRankClick(row);
-                    }
-                }
-            ]
+            available_ranks: []
         };
     },
+    computed: {
+        endpoint: function() {
+            return `/questiongroups/${this.questionGroupId}/ranks`;
+        }
+    },
     methods: {
-        onTagRankClick: function(row) {
-            window.location.href = `${this.endpoint}/${row.id}/ranks`;
+        onAddGroupRankClick: function() {
+            this.getAvailableRanks();
+            this.onAddClick();
         },
-        validateForm: function() {
-            if (this.form_model["description"].length === 0) {
-                this.errors["description"] = [
-                    "This field is required",
-                    ...(this.errors["description"] || [])
-                ];
-            }
+        getAvailableRanks: function() {
+            axios
+                .get(`${this.endpoint}/create`)
+                .then(res => {
+                    this.available_ranks = res.data;
+                })
+                .catch(res => {
+                    alertify.error(res.response.data.message);
+                });
         }
     },
     components: { PagerComponent, PagerFormComponent, InputComponent }

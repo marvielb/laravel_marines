@@ -35,6 +35,11 @@ Vue.component(
 );
 
 Vue.component(
+    "question-group-rank-pager",
+    require("./components/question-groups/QuestionGroupRankPager.vue").default
+);
+
+Vue.component(
     "choice-pager",
     require("./components/choices/ChoicePager.vue").default
 );
