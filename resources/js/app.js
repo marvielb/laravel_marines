@@ -40,6 +40,12 @@ Vue.component(
 );
 
 Vue.component(
+    "question-group-question-pager",
+    require("./components/question-groups/QuestionGroupQuestionPager.vue")
+        .default
+);
+
+Vue.component(
     "choice-pager",
     require("./components/choices/ChoicePager.vue").default
 );

@@ -68,6 +68,13 @@ export default {
                     callback: row => {
                         this.onTagRankClick(row);
                     }
+                },
+                {
+                    caption: "Tag Questions",
+                    class_name: "btn-secondary",
+                    callback: row => {
+                        this.onTagQuestionClick(row);
+                    }
                 }
             ]
         };
@@ -75,6 +82,9 @@ export default {
     methods: {
         onTagRankClick: function(row) {
             window.location.href = `${this.endpoint}/${row.id}/ranks`;
+        },
+        onTagQuestionClick: function(row) {
+            window.location.href = `${this.endpoint}/${row.id}/questions`;
         },
         validateForm: function() {
             if (this.form_model["description"].length === 0) {

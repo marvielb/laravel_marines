@@ -67,4 +67,7 @@ Route::middleware(['preventbackbutton','auth'])->group(function(){
 
     Route::resource('questiongroups.ranks', 'QuestionGroupRankController');
     Route::get('/api/questiongroups/{questiongroupid}/ranks', 'QuestionGroupRankController@pagination');
+
+    Route::resource('questiongroups.questions', 'QuestionGroupQuestionController');
+    Route::get('/api/questiongroups/{questiongroupid}/questions', 'QuestionGroupQuestionController@pagination');
 });
