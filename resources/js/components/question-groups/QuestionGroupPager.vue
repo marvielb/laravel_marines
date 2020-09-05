@@ -64,14 +64,14 @@ export default {
             actions: [
                 {
                     caption: "Tag Ranks",
-                    class_name: "btn-secondary",
+                    class_name: "btn-marines-primary",
                     callback: row => {
                         this.onTagRankClick(row);
                     }
                 },
                 {
                     caption: "Tag Questions",
-                    class_name: "btn-secondary",
+                    class_name: "btn-marines-primary",
                     callback: row => {
                         this.onTagQuestionClick(row);
                     }

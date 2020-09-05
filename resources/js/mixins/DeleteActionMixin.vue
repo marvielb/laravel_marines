@@ -6,7 +6,7 @@ export default {
             ...(this.actions || []),
             {
                 caption: "Delete",
-                class_name: "btn-danger",
+                class_name: "btn-marines-delete",
                 callback: row => {
                     this.onDeleteClick(row);
                 }

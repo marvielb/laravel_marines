@@ -6,7 +6,7 @@ export default {
             ...(this.actions || []),
             {
                 caption: "Edit",
-                class_name: "btn-warning",
+                class_name: "btn-marines-edit",
                 callback: row => {
                     this.onEditClick(row);
                 }

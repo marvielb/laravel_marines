@@ -1,0 +1,36 @@
+.sidebar-marines-primary {
+    background-color: #7c891d !important;
+    .nav-sidebar > .nav-item > .nav-link.active,
+    .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+        background-color: #535c14;
+        color: #a4ab83;
+    }
+}
+
+.btn-marines-primary {
+    background-color: #a6b726;
+    color: whitesmoke;
+}
+
+.btn-marines-edit {
+    background-color: #408ab3;
+    color: whitesmoke;
+}
+
+.btn-marines-delete {
+    background-color: #e05225;
+    color: whitesmoke;
+}
+
+thead {
+    background-color: #a6b727;
+    color: #d4dba9;
+}
+
+tbody tr {
+    background-color: #e1e6cd;
+}
+
+.table-striped tbody tr:nth-of-type(2n + 1) {
+    background-color: #f1f3e8;
+}

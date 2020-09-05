@@ -60,7 +60,7 @@ export default {
             actions: [
                 {
                     caption: "Choices",
-                    class_name: "btn-secondary",
+                    class_name: "btn-marines-primary",
                     callback: row => {
                         window.location.href = `${this.endpoint}/${row.id}/choices`;
                     }

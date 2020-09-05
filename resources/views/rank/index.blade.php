@@ -3,7 +3,11 @@
 @section('title', 'Ranks')
 
 @section('content_header')
-    <h1>Ranks</h1>
+<div class="container">
+    <div class="row">
+        <h1>Ranks</h1>
+    </div>
+</div>
 @stop
 
 
@@ -14,9 +18,5 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-@section('js')
-    <script> console.log('Hi!'); </script>
+<link rel="stylesheet" href="/css/admin_custom.css">
 @stop
