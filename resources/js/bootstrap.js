@@ -30,6 +30,8 @@ window.alertify.defaults.theme.input = "form-control";
 
 try {
     window.$ = window.jQuery = require("jquery");
+    require("overlayscrollbars");
+    require("../../vendor/almasaeed2010/adminlte/dist/js/adminlte");
 } catch (e) {}
 
 /**

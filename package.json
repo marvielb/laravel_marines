@@ -25,6 +25,9 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "alertifyjs": "^1.13.1"
+        "@fortawesome/fontawesome-free": "^5.14.0",
+        "alertifyjs": "^1.13.1",
+        "icheck-bootstrap": "^3.0.1",
+        "overlayscrollbars": "^1.13.0"
     }
 }
