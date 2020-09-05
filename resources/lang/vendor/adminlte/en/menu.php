@@ -16,4 +16,8 @@ return [
     'important'                     => 'Important',
     'warning'                       => 'Warning',
     'information'                   => 'Information',
+    'master_files'                  => 'MASTER FILES',
+    'ranks'                         => 'Ranks',
+    'questions'                     => 'Questions',
+    'question_groups'               => 'Question Groups'
 ];
