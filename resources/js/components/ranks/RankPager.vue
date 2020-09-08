@@ -22,6 +22,7 @@
                         :label="'Description'"
                         :is_validation_enabled="is_form_dirty"
                         :error_messages="getErrorMessages('description')"
+                        :model="form_model.description"
                         v-slot="{ classes }"
                     >
                         <input

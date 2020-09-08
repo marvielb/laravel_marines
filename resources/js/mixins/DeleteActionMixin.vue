@@ -18,9 +18,14 @@ export default {
             alertify.confirm(
                 "Are you sure you want to delete this entry?",
                 () => {
-                    axios.delete(`${this.endpoint}/${row.id}`).then(() => {
-                        this.reloadPager();
-                    });
+                    axios
+                        .delete(`${this.endpoint}/${row.id}`)
+                        .then(() => {
+                            this.reloadPager();
+                        })
+                        .catch(res => {
+                            alertify.error(res.response.data.message);
+                        });
                 }
             );
         }

@@ -244,6 +244,11 @@ return [
 
         ['header' => 'master_files'],
         [
+            'text' => 'marines_personnel',
+            'url'  => 'users',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
             'text' => 'ranks',
             'url'  => 'ranks',
             'icon' => 'fas fa-fw fa-user',
@@ -258,6 +263,12 @@ return [
             'url'  => 'questiongroups',
             'icon' => 'fas fa-fw fa-lock',
         ],
+        ['header' => 'others'],
+        [
+            'text' => 'code_generator',
+            'url' => 'codegenerator',
+            'icon' => 'fas fa-fw fa-lock',
+        ]
         // [
         //     'text'    => 'multilevel',
         //     'icon'    => 'fas fa-fw fa-share',

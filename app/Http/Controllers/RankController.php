@@ -32,6 +32,11 @@ class RankController extends Controller
         return view('rank.index');
     }
 
+
+    public function all() {
+        return Rank::all();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -104,4 +109,5 @@ class RankController extends Controller
     {
         $rank->delete();
     }
+
 }

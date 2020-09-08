@@ -43,6 +43,7 @@ Route::middleware(['preventbackbutton','auth'])->group(function(){
     Route::post('/change_password', 'ChangePasswordController@changePassword');
 
     Route::resource('/ranks', 'RankController');
+    Route::get('/api/ranks/all', 'RankController@all');
     Route::get('/api/ranks', 'RankController@pagination');
     Route::get('/api/ranks/{rank}', 'RankController@edit');
 
@@ -70,4 +71,9 @@ Route::middleware(['preventbackbutton','auth'])->group(function(){
 
     Route::resource('questiongroups.questions', 'QuestionGroupQuestionController');
     Route::get('/api/questiongroups/{questiongroupid}/questions', 'QuestionGroupQuestionController@pagination');
+
+
+    Route::resource('users', 'UserController');
+    Route::get('/api/users', 'UserController@pagination');
+    Route::get('/api/users/{user}', 'UserController@edit');
 });

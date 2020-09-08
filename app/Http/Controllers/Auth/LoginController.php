@@ -44,13 +44,13 @@ class LoginController extends Controller
     {
         if (Hash::check('12345', $user->password)) {
             return redirect()->route('password');
-        } else {            
+        } else {
             return redirect()->route('home');
         }
     }
 
     public function username()
     {
-        return 'marineNumber';
+        return 'marine_number';
     }
 }

@@ -19,5 +19,8 @@ return [
     'master_files'                  => 'MASTER FILES',
     'ranks'                         => 'Ranks',
     'questions'                     => 'Questions',
-    'question_groups'               => 'Question Groups'
+    'question_groups'               => 'Question Groups',
+    'marines_personnel'             => 'Marines Personnel',
+    'others'                        => 'OTHERS',
+    'code_generator'                => 'Code Generator',
 ];

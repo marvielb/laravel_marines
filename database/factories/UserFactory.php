@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Rank;
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
@@ -20,8 +21,12 @@ use Illuminate\Support\Facades\Hash;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'marineNumber' => $faker->regexify('[A-Za-z0-9]{20}'),
-        'name' => $faker->name,
+        'marine_number' => $faker->regexify('[0-9]{20}'),
+        'last_name' => $faker->lastName,
+        'first_name' => $faker->firstName(),
+        'middle_name' => $faker->lastName,
+        'rank_id' => factory(Rank::class),
+        'last_promotion' => $faker->date(),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => Hash::make(12345), // password

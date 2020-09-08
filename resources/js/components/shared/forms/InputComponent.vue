@@ -24,12 +24,20 @@ export default {
         classes: function() {
             return [
                 "form-control",
-                this.is_validation_enabled == false
+                this.is_validation_enabled == false || this.is_dirty == false
                     ? ""
                     : this.is_valid
-                    ? "is-valid"
+                    ? ""
                     : "is-invalid"
             ];
+        }
+    },
+    watch: {
+        model: {
+            handler: function(val, oldVal) {
+                this.is_dirty = true;
+            },
+            deep: true
         }
     },
     props: {
@@ -37,6 +45,11 @@ export default {
         is_validation_enabled: Boolean,
         error_messages: Array,
         model: String
+    },
+    data: function() {
+        return {
+            is_dirty: false
+        };
     }
 };
 </script>
