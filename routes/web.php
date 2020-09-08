@@ -76,4 +76,8 @@ Route::middleware(['preventbackbutton','auth'])->group(function(){
     Route::resource('users', 'UserController');
     Route::get('/api/users', 'UserController@pagination');
     Route::get('/api/users/{user}', 'UserController@edit');
+
+
+    Route::get('/codegenerator', 'ExamController@create');
+    Route::post('/api/codegenerator', 'ExamController@store');
 });
