@@ -263,6 +263,12 @@ return [
             'url'  => 'questiongroups',
             'icon' => 'fas fa-fw fa-lock',
         ],
+        ['header' => 'examination'],
+        [
+            'text' => 'exam_sheet',
+            'url'  => 'examsheet',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
         ['header' => 'others'],
         [
             'text' => 'code_generator',

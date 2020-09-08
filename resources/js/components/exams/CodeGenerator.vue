@@ -11,6 +11,7 @@
                     class="form-control"
                     id="marines_number"
                     v-model="form.marine_number"
+                    style="text-align: center;"
                 />
             </div>
             <div class="form-group">
@@ -21,6 +22,7 @@
                     class="form-control"
                     id="marines_number"
                     v-model="form.code"
+                    style="text-align: center;"
                 />
             </div>
             <div class="row">

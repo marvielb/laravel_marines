@@ -21,6 +21,8 @@ return [
     'questions'                     => 'Questions',
     'question_groups'               => 'Question Groups',
     'marines_personnel'             => 'Marines Personnel',
+    'examination'                   => 'EXAMINATION',
+    'exam_sheet'                    => 'Exam Sheet',
     'others'                        => 'OTHERS',
     'code_generator'                => 'Code Generator',
 ];

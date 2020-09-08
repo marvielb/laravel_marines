@@ -60,6 +60,11 @@ Vue.component(
     require("./components/exams/CodeGenerator.vue").default
 );
 
+Vue.component(
+    "exam-confirmation",
+    require("./components/exams/Confirmation.vue").default
+);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

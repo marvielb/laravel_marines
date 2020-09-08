@@ -163,7 +163,7 @@
                                 v-slot="{ classes }"
                             >
                                 <input
-                                    type="text"
+                                    type="date"
                                     :class="classes"
                                     v-model="form_model.birthday"
                                 />
@@ -179,8 +179,9 @@
                             >
                                 <input
                                     type="text"
+                                    readonly
                                     :class="classes"
-                                    v-model="form_model.age"
+                                    v-model="age"
                                 />
                             </InputComponent>
                         </div>
@@ -332,6 +333,15 @@ export default {
             all_ranks: []
         };
     },
+    computed: {
+        age: function() {
+            return this.form_model.birthday.length === 0
+                ? ""
+                : new Date(
+                      new Date() - new Date(this.form_model.birthday)
+                  ).getFullYear() - 1970;
+        }
+    },
     methods: {
         validateForm: function() {
             if (this.form_model["marine_number"].length === 0) {
@@ -373,9 +383,7 @@ export default {
                 });
         }
     },
-    mounted: function() {
-        this.getAllRanks();
-    },
+
     components: { PagerComponent, PagerFormComponent, InputComponent }
 };
 </script>
