@@ -81,4 +81,6 @@ Route::middleware(['preventbackbutton','auth'])->group(function(){
     Route::get('/codegenerator', 'ExamController@create');
     Route::get('/examsheet', 'ExamController@index');
     Route::post('/api/codegenerator', 'ExamController@store');
+    Route::post('/api/exam/proceed', 'ExamController@proceed');
+    Route::get('/api/exam/{code}', 'ExamController@show');
 });

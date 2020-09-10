@@ -51,7 +51,7 @@ class ExamController extends Controller
      */
     public function show(Exam $exam)
     {
-        //
+
     }
 
     /**
@@ -86,5 +86,15 @@ class ExamController extends Controller
     public function destroy(Exam $exam)
     {
         //
+    }
+
+    public function proceed(Request $request)
+    {
+        $validated = $request->validate([
+            'code' => 'required|exists:exams'
+        ]);
+
+        return Exam::where('code', $validated['code'])
+                     ->with('exam_questions.question.choices')->first();
     }
 }

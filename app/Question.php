@@ -8,6 +8,8 @@ class Question extends Model
 {
     protected $fillable = ['body', 'correct_choice_id'];
 
+    protected $hidden = ['correct_choice_id'];
+
     public function choices()
     {
         return $this->hasMany('App\Choice');

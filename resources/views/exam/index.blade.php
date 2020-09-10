@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col">
             <div id="app">
-                <exam-confirmation></exam-confirmation>
+                <exam-sheet></exam-sheet>
             </div>
         </div>
     </div>

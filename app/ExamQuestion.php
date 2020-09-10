@@ -11,4 +11,9 @@ class ExamQuestion extends Model
         'question_id',
         'answer_id'
     ];
+
+    public function question() {
+        return $this->belongsTo('App\Question');
+    }
+
 }

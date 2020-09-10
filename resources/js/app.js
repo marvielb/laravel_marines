@@ -61,8 +61,8 @@ Vue.component(
 );
 
 Vue.component(
-    "exam-confirmation",
-    require("./components/exams/Confirmation.vue").default
+    "exam-sheet",
+    require("./components/exams/ExamSheet.vue").default
 );
 
 /**

@@ -383,7 +383,9 @@ export default {
                 });
         }
     },
-
+    mounted: function() {
+        this.getAllRanks();
+    },
     components: { PagerComponent, PagerFormComponent, InputComponent }
 };
 </script>
