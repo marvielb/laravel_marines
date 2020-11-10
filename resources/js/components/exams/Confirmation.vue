@@ -17,7 +17,7 @@
             <div class="row">
                 <button
                     type="button"
-                    class="btn btn-primary mx-auto"
+                    class="btn btn-marines-primary mx-auto"
                     @click="onProceedClick"
                 >
                     Proceed

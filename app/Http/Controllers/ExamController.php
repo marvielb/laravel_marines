@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exam;
+use App\ExamQuestion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ExamController extends Controller
 {
@@ -94,7 +96,11 @@ class ExamController extends Controller
             'code' => 'required|exists:exams'
         ]);
 
-        return Exam::where('code', $validated['code'])
-                     ->with('exam_questions.question.choices')->first();
+        return Exam::select(
+                    '*',
+                    DB::raw("(select COUNT(*) from exam_questions where exam_questions.exam_id = exams.id) as remaining_questions"),
+                    )
+                    ->where('code', $validated['code'])
+                    ->with(['exam_questions.question.choices', 'examinee.rank'])->first();
     }
 }

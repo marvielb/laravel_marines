@@ -45,8 +45,8 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Marines</b> Exam',
+    'logo_img' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Seal_of_the_Philippine_Marine_Corps.svg/1200px-Seal_of_the_Philippine_Marine_Corps.svg.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -231,17 +231,6 @@ return [
     */
 
     'menu' => [
-        [
-            'text' => 'search',
-            'search' => false,
-            'topnav' => true,
-        ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-
         ['header' => 'master_files'],
         [
             'text' => 'marines_personnel',
@@ -251,29 +240,29 @@ return [
         [
             'text' => 'ranks',
             'url'  => 'ranks',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-trophy',
         ],
         [
             'text' => 'questions',
             'url'  => 'questions',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-fw fa-question',
         ],
         [
             'text' => 'question_groups',
             'url'  => 'questiongroups',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-fw fa-question-circle',
         ],
         ['header' => 'examination'],
         [
             'text' => 'exam_sheet',
             'url'  => 'examsheet',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-fw fa-book',
         ],
         ['header' => 'others'],
         [
             'text' => 'code_generator',
             'url' => 'codegenerator',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-fw fa-code',
         ]
         // [
         //     'text'    => 'multilevel',

@@ -170,7 +170,7 @@
                     <tbody>
                         <tr>
                             <td>Total Items</td>
-                            <td>4</td>
+                            <td>0</td>
                         </tr>
                         <tr>
                             <td>Remaining Time</td>
@@ -178,11 +178,11 @@
                         </tr>
                         <tr>
                             <td>Time Consumed</td>
-                            <td>1:30:00</td>
+                            <td>00:00:00</td>
                         </tr>
                         <tr>
                             <td>Date of Examination</td>
-                            <td>March 11, 2020</td>
+                            <td>Xxxx 00, 0000</td>
                         </tr>
                     </tbody>
                 </table>

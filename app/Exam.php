@@ -50,4 +50,9 @@ class Exam extends Model
     {
         return $this->hasMany('App\ExamQuestion');
     }
+
+    public function examinee()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
 }

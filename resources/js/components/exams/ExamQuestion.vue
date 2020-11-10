@@ -2,8 +2,15 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col">Remaining Questions: 4</div>
-                <div class="col">Remaining Time: 00:00:00</div>
+                <div class="col">
+                    Remaining Questions:
+                    {{ current_remaining_questions }}
+                </div>
+                <div class="col">
+                    Remaining Time: {{ remaining_time.hours }} hours
+                    {{ remaining_time.minutes }} minutes
+                    {{ remaining_time.seconds }} seconds
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -18,14 +25,13 @@
                 </div>
                 <div class="col-9">
                     <div class="row">
-                        Name: Manuel, Arni Nickard A.
+                        Name: {{ examinee.last_name }},
+                        {{ examinee.first_name }} {{ examinee.middle_name }}.
                     </div>
                     <div class="row">
-                        Serial No: 123
+                        Serial No: {{ examinee.marine_number }}
                     </div>
-                    <div class="row">
-                        Rank: None
-                    </div>
+                    <div class="row">Rank: {{ examinee.rank.description }}</div>
                     <div class="row">
                         Class: 2020
                     </div>
@@ -54,6 +60,7 @@
                                 type="radio"
                                 :name="`answer[${exam_question.id}]`"
                                 :value="j"
+                                @change="AnswerQuestion(exam_question.id, j)"
                             />
                             <label class="form-check-label">
                                 {{ choice.body }}
@@ -69,7 +76,9 @@
                     class="col align-self-end"
                     style="display: flex; justify-content: flex-end;"
                 >
-                    <button class="btn btn-primary">DONE</button>
+                    <button class="btn btn-primary" @click="onDoneClick">
+                        DONE
+                    </button>
                 </div>
             </div>
         </div>
@@ -77,52 +86,59 @@
 </template>
 
 <script>
+import { formatDate } from "@fullcalendar/core";
 export default {
+    data() {
+        return {
+            answered_questions: {},
+            remaining_time: {}
+        };
+    },
     props: {
-        exam_questions: Array
+        remaining_questions: Number,
+        exam_questions: Array,
+        examinee: Object,
+        created_at: String
+    },
+    computed: {
+        current_remaining_questions: function() {
+            return (
+                this.remaining_questions -
+                Object.keys(this.answered_questions).length
+            );
+        }
+    },
+    methods: {
+        AnswerQuestion(id, answer_id) {
+            this.$set(this.answered_questions, id, answer_id);
+        },
+        getTimeRemaining(endtime) {
+            const total = Date.parse(endtime) - Date.parse(new Date());
+            const seconds = Math.floor((total / 1000) % 60);
+            const minutes = Math.floor((total / 1000 / 60) % 60);
+            const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+            const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+            return {
+                total,
+                days,
+                hours,
+                minutes,
+                seconds
+            };
+        },
+        onDoneClick() {
+            this.$emit("done");
+        }
+    },
+    created: function() {
+        const self = this;
+        setInterval(() => {
+            self.remaining_time = self.getTimeRemaining(
+                new Date(self.created_at).addHours(2)
+            );
+        }, 500);
     }
-    // data() {
-    //     return {
-    //         questions: [
-    //             {
-    //                 body: "What is biology?",
-    //                 choices: [
-    //                     "Study of Life",
-    //                     "Study of animals",
-    //                     "Secret",
-    //                     "None"
-    //                 ]
-    //             },
-    //             {
-    //                 body: "Who is the first president of th Philippines?",
-    //                 choices: [
-    //                     "Jose P. Laurel",
-    //                     "Pepito Manaloto",
-    //                     "Gloria Macapagal Arroyo",
-    //                     "Emilio Aguinaldo"
-    //                 ]
-    //             },
-    //             {
-    //                 body: "When did Dr. Jose Rizal Died?",
-    //                 choices: [
-    //                     "December 3, 2006",
-    //                     "December 1, 1896",
-    //                     "November 30, 1896",
-    //                     "December 30, 1896"
-    //                 ]
-    //             },
-    //             {
-    //                 body: "When was Martial law declared?",
-    //                 choices: [
-    //                     "September 21, 1973",
-    //                     "September 21, 1972",
-    //                     "September 21, 1971",
-    //                     "September 22, 1972"
-    //                 ]
-    //             }
-    //         ]
-    //     };
-    // }
 };
 </script>
 

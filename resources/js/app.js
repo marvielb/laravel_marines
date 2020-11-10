@@ -74,3 +74,8 @@ Vue.component(
 const app = new Vue({
     el: "#app"
 });
+
+Date.prototype.addHours = function(h) {
+    this.setTime(this.getTime() + h * 60 * 60 * 1000);
+    return this;
+};

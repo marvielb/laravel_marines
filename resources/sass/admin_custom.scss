@@ -38,3 +38,31 @@ tbody tr {
 .table-striped tbody tr:nth-of-type(2n + 1) {
     background-color: #f1f3e8;
 }
+
+.modal-header {
+    background-color: #7c891d;
+    color: white;
+}
+
+.card-header {
+    background-color: #7c891d;
+    color: white;
+}
+
+.modal-body {
+    background-color: #e2eba0;
+}
+
+.card-body {
+    background-color: #e2eba0;
+}
+
+.modal-footer {
+    background-color: #e2eba0;
+}
+
+.form-control,
+.form-control:focus:not(:disabled),
+.custom-select {
+    background-color: #f0f5d0;
+}
