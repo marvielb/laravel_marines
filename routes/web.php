@@ -17,7 +17,7 @@ use App\Http\Middleware\CheckChangePass;
 Auth::routes();
 
 //  IF USER IS NOT LOGIN!
-Route::middleware(['preventbackbutton','guest'])->group(function() {
+Route::middleware(['preventbackbutton', 'guest'])->group(function () {
 
     Route::get('/', function () {
         return view('welcome');
@@ -25,11 +25,10 @@ Route::middleware(['preventbackbutton','guest'])->group(function() {
 
     Route::get('/applicants', 'ApplicantController@create');
     Route::post('/applicants', 'ApplicantController@store');
-
 });
 
 // IF USER IS LOGIN!
-Route::middleware(['preventbackbutton','auth'])->group(function(){
+Route::middleware(['preventbackbutton', 'auth'])->group(function () {
 
     // HOME
     Route::get('/home', 'HomeController@index')->name('home')->middleware(CheckChangePass::class);
@@ -82,5 +81,7 @@ Route::middleware(['preventbackbutton','auth'])->group(function(){
     Route::get('/examsheet', 'ExamController@index');
     Route::post('/api/codegenerator', 'ExamController@store');
     Route::post('/api/exam/proceed', 'ExamController@proceed');
+    Route::post('/api/exam/getquestion', 'ExamController@getquestion');
+    Route::post('/api/exam/answerquestion', 'ExamController@answerquestion');
     Route::get('/api/exam/{code}', 'ExamController@show');
 });

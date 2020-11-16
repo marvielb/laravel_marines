@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col">
             <div id="app">
-                <exam-sheet></exam-sheet>
+                <exam-sheet session_exam_code="{{Session::get('active_exam_code')}}"></exam-sheet>
             </div>
         </div>
     </div>

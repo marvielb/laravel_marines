@@ -6,6 +6,7 @@ use App\Exam;
 use App\ExamQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class ExamController extends Controller
 {
@@ -53,7 +54,6 @@ class ExamController extends Controller
      */
     public function show(Exam $exam)
     {
-
     }
 
     /**
@@ -96,11 +96,53 @@ class ExamController extends Controller
             'code' => 'required|exists:exams'
         ]);
 
+        Session::put('active_exam_code', $validated['code']);
+
         return Exam::select(
-                    '*',
-                    DB::raw("(select COUNT(*) from exam_questions where exam_questions.exam_id = exams.id) as remaining_questions"),
-                    )
-                    ->where('code', $validated['code'])
-                    ->with(['exam_questions.question.choices', 'examinee.rank'])->first();
+            '*',
+            DB::raw("(select COUNT(*) from exam_questions where exam_questions.exam_id = exams.id AND exam_questions.answer_id IS NULL) as remaining_questions"),
+        )
+            ->where('code', $validated['code'])
+            ->with(['examinee.rank'])->first();
+    }
+
+    public function getquestion(Request $request)
+    {
+        $validated = $request->validate([
+            'code' => 'required|exists:exams'
+        ]);
+
+        $exam = Exam::where('code', $validated['code'])
+            ->first();
+
+        $questions = ExamQuestion::where('exam_id', $exam['id'])
+            ->with('question.choices')
+            ->paginate(5);
+
+        $remaining_questions = Exam::select(
+            DB::raw("(select COUNT(*) from exam_questions where exam_questions.exam_id = exams.id AND exam_questions.answer_id IS NULL) as remaining_questions"),
+        )
+            ->where('code', $validated['code'])
+            ->first();
+        return [
+            'questions' => $questions,
+            'remaining_questions' => $remaining_questions['remaining_questions']
+        ];
+    }
+
+    public function answerquestion(Request $request)
+    {
+        $validated = $request->validate([
+            'answers.*.id' => 'required|exists:exam_questions,id',
+            'answers.*.answer_id' => 'required|exists:choices,id'
+        ]);
+
+        foreach ($validated['answers'] as $exam) {
+            $examQuestion = ExamQuestion::find($exam['id']);
+            $examQuestion->answer_id = $exam['answer_id'];
+            $examQuestion->save();
+        }
+
+        return $validated;
     }
 }
