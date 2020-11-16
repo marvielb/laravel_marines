@@ -43,9 +43,9 @@ export default {
       pagination: {},
     };
   },
-  mounted: function () {
+  mounted: async function () {
     if (this.session_exam_code) {
-      this.onProceedClick(this.session_exam_code);
+      await this.onProceedClick(this.session_exam_code);
     }
   },
   computed: {
@@ -54,47 +54,43 @@ export default {
     },
   },
   methods: {
-    onDoneClick(answers) {
+    async onDoneClick(answers) {
       console.log("Done");
     },
-    onNextClick(answers) {
-      axios
-        .post("/api/exam/answerquestion", { answers })
-        .then((res) => {
-          this.getExamQuestions(this.pagination.next_page_url);
-        })
-        .catch((res) => {
-          alertify.error("Internal Server Error");
-        });
+    async onNextClick(answers) {
+      try {
+        const res = await axios.post("/api/exam/answerquestion", { answers });
+        await this.getExamQuestions(this.pagination.next_page_url);
+      } catch {
+        alertify.error("Internal Server Error");
+      }
     },
-    onBackClick() {
-      this.getExamQuestions(this.pagination.prev_page_url);
+    async onBackClick() {
+      await this.getExamQuestions(this.pagination.prev_page_url);
     },
-    onProceedClick(code) {
-      axios
-        .post("/api/exam/proceed", { code })
-        .then((res) => {
-          this.exam_code = res.data.code;
-          this.is_code_valid = true;
-          this.examinee = res.data.examinee;
-          this.remaining_questions = res.data.remaining_questions;
-          this.created_at = res.data.created_at;
-          this.getExamQuestions("/api/exam/getquestion");
-        })
-        .catch((res) => alertify.error("Exam Code does not exists"));
+    async onProceedClick(code) {
+      try {
+        const res = await axios.post("/api/exam/proceed", { code });
+        this.exam_code = res.data.code;
+        this.is_code_valid = true;
+        this.examinee = res.data.examinee;
+        this.remaining_questions = res.data.remaining_questions;
+        this.created_at = res.data.created_at;
+        await this.getExamQuestions("/api/exam/getquestion");
+      } catch (err) {
+        alertify.error("Exam Code does not exists");
+      }
     },
-    getExamQuestions(url) {
+    async getExamQuestions(url) {
       const code = this.exam_code;
-      axios
-        .post(url, { code })
-        .then((res) => {
-          this.exam_questions = res.data.questions.data;
-          this.remaining_questions = res.data.remaining_questions;
-          this.pagination = res.data.questions;
-        })
-        .catch((res) => {
-          alertify.error("Internal Error");
-        });
+      try {
+        const res = await axios.post(url, { code });
+        this.exam_questions = res.data.questions.data;
+        this.remaining_questions = res.data.remaining_questions;
+        this.pagination = res.data.questions;
+      } catch (err) {
+        alertify.error("Internal Error");
+      }
     },
   },
 };
