@@ -145,4 +145,43 @@ class ExamController extends Controller
 
         return $validated;
     }
+
+    public function doneexam(Request $request)
+    {
+        $validated = $request->validate([
+            'code' => 'required|exists:exams'
+        ]);
+
+        $exam = Exam::where('code', $validated['code'])
+            ->first();
+
+        $exam->is_done = true;
+        $exam->save();
+    }
+
+    public function getexamresults(Request $request)
+    {
+        $validated = $request->validate([
+            'code' => 'required|exists:exams'
+        ]);
+
+        $exam = Exam::where('code', $validated['code'])
+            ->first();
+
+        $examResults = DB::table('exam_questions')
+            ->select(
+                DB::raw('COUNT(*) AS total_items'),
+                DB::raw('
+                        SUM(
+                        CASE WHEN answer_id = (SELECT correct_choice_id FROM questions WHERE id = exam_questions.question_id)
+                            THEN 1
+                            ELSE 0
+                        END
+                        ) AS correct_answers')
+            )->where('exam_id', $exam['id'])->first();
+        return [
+            'total_items' => (int)$examResults->total_items,
+            'correct_answers' => (int)$examResults->correct_answers,
+        ];
+    }
 }

@@ -3,6 +3,9 @@
     <div v-if="is_exam_code_empty || is_code_valid === false">
       <ConfirmationComponent @onProceedClick="onProceedClick" />
     </div>
+    <div v-else-if="is_done">
+      <ResultComponent :code="exam_code" />
+    </div>
     <div v-else>
       <ExamQuestionComponent
         :pagination="pagination"
@@ -39,7 +42,7 @@ export default {
       examinee: {},
       remaining_questions: 0,
       created_at: "",
-      is_done: false,
+      is_done: true,
       pagination: {},
     };
   },
@@ -55,11 +58,17 @@ export default {
   },
   methods: {
     async onDoneClick(answers) {
-      console.log("Done");
+      try {
+        const code = this.exam_code;
+        await this.saveAnswers(answers);
+        this.is_done = true;
+      } catch {
+        alertify.error("Internal Server Error");
+      }
     },
     async onNextClick(answers) {
       try {
-        const res = await axios.post("/api/exam/answerquestion", { answers });
+        await this.saveAnswers(answers);
         await this.getExamQuestions(this.pagination.next_page_url);
       } catch {
         alertify.error("Internal Server Error");
@@ -90,6 +99,11 @@ export default {
         this.pagination = res.data.questions;
       } catch (err) {
         alertify.error("Internal Error");
+      }
+    },
+    async saveAnswers(answers) {
+      if (answers.length > 0) {
+        return await axios.post("/api/exam/answerquestion", { answers });
       }
     },
   },

@@ -83,5 +83,6 @@ Route::middleware(['preventbackbutton', 'auth'])->group(function () {
     Route::post('/api/exam/proceed', 'ExamController@proceed');
     Route::post('/api/exam/getquestion', 'ExamController@getquestion');
     Route::post('/api/exam/answerquestion', 'ExamController@answerquestion');
+    Route::post('/api/exam/results', 'ExamController@getexamresults');
     Route::get('/api/exam/{code}', 'ExamController@show');
 });
