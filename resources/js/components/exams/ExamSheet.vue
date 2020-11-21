@@ -42,7 +42,7 @@ export default {
       examinee: {},
       remaining_questions: 0,
       created_at: "",
-      is_done: true,
+      is_done: false,
       pagination: {},
     };
   },
