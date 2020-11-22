@@ -150,8 +150,7 @@
 :root .fa-flip-horizontal,
 :root .fa-flip-vertical,
 :root .fa-flip-both {
-  -webkit-filter: none;
-          filter: none; }
+  filter: none; }
 
 .fa-stack {
   display: inline-block;
@@ -4759,8 +4758,7 @@ body.os-dragging * {
     margin: 0 !important;
     border-radius: 0px !important;
     float: none !important;
-    -webkit-filter: none !important;
-            filter: none !important;
+    filter: none !important;
     border: none !important;
     resize: none !important;
     transform: none !important;
@@ -37680,8 +37678,7 @@ button.ui-button::-moz-focus-inner {
 /* support: IE8 - See #6727 */
 .ui-slider.ui-state-disabled .ui-slider-handle,
 .ui-slider.ui-state-disabled .ui-slider-range {
-	-webkit-filter: inherit;
-	        filter: inherit;
+	filter: inherit;
 }
 
 .ui-slider-horizontal {

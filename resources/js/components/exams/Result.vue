@@ -92,15 +92,15 @@
             </tr>
             <tr>
               <td>Remaining Time</td>
-              <td>00:00:00</td>
+              <td>{{ remaining_time }}</td>
             </tr>
             <tr>
               <td>Time Consumed</td>
-              <td>00:00:00</td>
+              <td>{{ time_consumed }}</td>
             </tr>
             <tr>
               <td>Date of Examination</td>
-              <td>Xxxx 00, 0000</td>
+              <td>{{ date_of_examination }}</td>
             </tr>
           </tbody>
         </table>
@@ -117,6 +117,12 @@
 </template>
 
 <script>
+import addHours from "date-fns/addHours";
+import formatDistanceStrict from "date-fns/formatDistanceStrict";
+import differenceInMinutes from "date-fns/differenceInMinutes";
+import differenceInHours from "date-fns/differenceInHours";
+import format from "date-fns/format";
+
 export default {
   props: {
     code: "",
@@ -125,15 +131,51 @@ export default {
     return {
       total_items: 0,
       correct_answers: 0,
+      exam: {},
     };
   },
+  computed: {
+    remaining_time() {
+      try {
+        const end = addHours(new Date(this.exam.started_at), 2);
+        const minutes = Math.abs(
+          differenceInMinutes(end, new Date(this.exam.finished_at))
+        );
+        const hours = Math.abs(
+          differenceInHours(end, new Date(this.exam.finished_at))
+        );
+        return `${hours} hour(s) ${minutes % 60} minute(s)`;
+      } catch {
+        return "";
+      }
+    },
+    time_consumed() {
+      try {
+        return formatDistanceStrict(
+          new Date(this.exam.started_at),
+          new Date(this.exam.finished_at),
+          { roundingMethod: "floor" }
+        );
+      } catch {
+        return "";
+      }
+    },
+    date_of_examination() {
+      try {
+        return format(new Date(this.exam.started_at), "MM/dd/yyyy");
+      } catch {
+        return "";
+      }
+    },
+  },
   mounted: async function () {
-    console.log("huehue");
     try {
       const code = this.code;
       const res = await axios.post("/api/exam/results", { code });
       this.total_items = res.data.total_items;
       this.correct_answers = res.data.correct_answers;
+      this.exam = res.data.exam;
+      console.log(this.exam);
     } catch {
       alertify.error("Results: Internal Server Error(1)");
     }
