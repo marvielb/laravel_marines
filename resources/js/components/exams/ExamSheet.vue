@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div v-if="is_exam_code_empty || is_code_valid === false">
-      <ConfirmationComponent @onProceedClick="onProceedClick" />
-    </div>
-    <div v-else-if="is_done">
+    <div v-if="is_done">
       <ResultComponent :code="exam_code" />
     </div>
     <div v-else>
@@ -79,12 +76,6 @@ export default {
     },
     async onProceedClick(code) {
       try {
-        const res = await axios.post("/api/exam/proceed", { code });
-        this.exam_code = res.data.code;
-        this.is_code_valid = true;
-        this.examinee = res.data.examinee;
-        this.remaining_questions = res.data.remaining_questions;
-        this.created_at = res.data.created_at;
         await this.getExamQuestions("/api/exam/getquestion");
       } catch (err) {
         alertify.error("Exam Code does not exists");

@@ -128,6 +128,7 @@ export default {
     };
   },
   mounted: async function () {
+    console.log("huehue");
     try {
       const code = this.code;
       const res = await axios.post("/api/exam/results", { code });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exam;
 use App\ExamQuestion;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -90,6 +91,16 @@ class ExamController extends Controller
         //
     }
 
+    public function confirm()
+    {
+        return view('exam.confirm');
+    }
+
+    public function result(Request $request, $exam_code)
+    {
+        return view('exam.result', ['exam_code' => $exam_code]);
+    }
+
     public function proceed(Request $request)
     {
         $validated = $request->validate([
@@ -97,6 +108,10 @@ class ExamController extends Controller
         ]);
 
         Session::put('active_exam_code', $validated['code']);
+
+        $exam = Exam::where('code', $validated['code'])->first();
+        $exam->started_at = Carbon::now();
+        $exam->save();
 
         return Exam::select(
             '*',
@@ -155,7 +170,7 @@ class ExamController extends Controller
         $exam = Exam::where('code', $validated['code'])
             ->first();
 
-        $exam->is_done = true;
+        $exam->finished_at = Carbon::now();
         $exam->save();
     }
 
@@ -179,9 +194,11 @@ class ExamController extends Controller
                         END
                         ) AS correct_answers')
             )->where('exam_id', $exam['id'])->first();
+
         return [
             'total_items' => (int)$examResults->total_items,
             'correct_answers' => (int)$examResults->correct_answers,
+            'exam' => $exam,
         ];
     }
 }

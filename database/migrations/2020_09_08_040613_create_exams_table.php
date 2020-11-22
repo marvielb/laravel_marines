@@ -17,6 +17,7 @@ class CreateExamsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('code')->unique();
+            $table->dateTime('started_at')->nullable();
             $table->dateTime('finished_at')->nullable();
             $table->timestamps();
 

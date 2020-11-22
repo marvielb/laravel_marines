@@ -65,6 +65,20 @@ Vue.component(
     require("./components/exams/ExamSheet.vue").default
 );
 
+Vue.component(
+    "exam-confirm",
+    require("./components/exams/Confirmation.vue").default
+);
+Vue.component(
+    "exam-question",
+    require("./components/exams/ExamQuestion.vue").default
+);
+
+Vue.component(
+    'exam-result',
+    require('./components/exams/Result.vue').default
+);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -75,7 +89,7 @@ const app = new Vue({
     el: "#app"
 });
 
-Date.prototype.addHours = function(h) {
+Date.prototype.addHours = function (h) {
     this.setTime(this.getTime() + h * 60 * 60 * 1000);
     return this;
 };

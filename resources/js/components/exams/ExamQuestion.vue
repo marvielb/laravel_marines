@@ -95,14 +95,15 @@ export default {
     return {
       answered_questions: {},
       remaining_time: {},
+      remaining_questions: Number,
+      exam_questions: Array,
+      examinee: Object,
+      created_at: String,
+      pagination: Object,
     };
   },
   props: {
-    remaining_questions: Number,
-    exam_questions: Array,
-    examinee: Object,
-    created_at: String,
-    pagination: Object,
+    exam_code: String,
   },
   computed: {
     current_remaining_questions: function () {
@@ -110,6 +111,26 @@ export default {
     },
   },
   methods: {
+    async getExamQuestions(url) {
+      const code = this.exam_code;
+      try {
+        const res = await axios.post(url, { code });
+        this.exam_questions = res.data.questions.data;
+        this.remaining_questions = res.data.remaining_questions;
+        this.pagination = res.data.questions;
+      } catch (err) {
+        alertify.error("Internal Error");
+      }
+    },
+    async saveAnswers(answers) {
+      if (answers.length > 0) {
+        return await axios.post("/api/exam/answerquestion", { answers });
+      }
+    },
+    async doneExam() {
+      const code = this.exam_code;
+      return axios.post("/api/exam/done", { code });
+    },
     getTimeRemaining(endtime) {
       const total = Date.parse(endtime) - Date.parse(new Date());
       const seconds = Math.floor((total / 1000) % 60);
@@ -125,11 +146,24 @@ export default {
         seconds,
       };
     },
-    onNextClick() {
-      this.$emit(
-        this.pagination.next_page_url ? "next" : "done",
-        this.exam_questions.filter((v) => v.answer_id)
-      );
+    async onNextClick() {
+      const answers = this.exam_questions.filter((v) => v.answer_id);
+      try {
+        await this.saveAnswers(answers);
+        if (this.pagination.next_page_url) {
+          await this.getExamQuestions(this.pagination.next_page_url);
+        } else {
+          await this.doneExam();
+          window.location.href = `/result/${this.exam_code}`;
+        }
+      } catch {
+        alertify.error("Internal Server Error (2)");
+      }
+
+      // this.$emit(
+      //   this.pagination.next_page_url ? "next" : "done",
+      //   this.exam_questions.filter((v) => v.answer_id)
+      // );
     },
     onBackClick() {
       this.$emit("back");
@@ -142,6 +176,15 @@ export default {
         new Date(self.created_at).addHours(2)
       );
     }, 500);
+  },
+  mounted: async function () {
+    const code = this.exam_code;
+    const res = await axios.post("/api/exam/proceed", { code });
+    this.exam_code = res.data.code;
+    this.examinee = res.data.examinee;
+    this.remaining_questions = res.data.remaining_questions;
+    this.created_at = res.data.created_at;
+    await this.getExamQuestions("/api/exam/getquestion");
   },
 };
 </script>
