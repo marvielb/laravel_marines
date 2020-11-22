@@ -110,8 +110,17 @@ class ExamController extends Controller
         Session::put('active_exam_code', $validated['code']);
 
         $exam = Exam::where('code', $validated['code'])->first();
-        $exam->started_at = Carbon::now();
-        $exam->save();
+        if (!$exam->started_at) {
+            $exam->started_at = Carbon::now();
+            $exam->save();
+        }
+    }
+
+    public function getexamdetails(Request $request)
+    {
+        $validated = $request->validate([
+            'code' => 'required|exists:exams'
+        ]);
 
         return Exam::select(
             '*',

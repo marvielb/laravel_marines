@@ -179,7 +179,7 @@ export default {
   },
   mounted: async function () {
     const code = this.exam_code;
-    const res = await axios.post("/api/exam/proceed", { code });
+    const res = await axios.post("/api/exam/details", { code });
     this.exam_code = res.data.code;
     this.examinee = res.data.examinee;
     this.remaining_questions = res.data.remaining_questions;

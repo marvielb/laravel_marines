@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckChangePass;
 use App\Http\Middleware\RedirectIfExamCodeSet;
 use App\Http\Middleware\RedirectIfExamCodeNotSet;
+use App\Http\Middleware\RedirectIfExamFinished;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,9 +81,10 @@ Route::middleware(['preventbackbutton', 'auth'])->group(function () {
 
 
     Route::get('/codegenerator', 'ExamController@create');
-    Route::get('/examsheet', 'ExamController@index')->middleware(RedirectIfExamCodeNotSet::class);
+    Route::get('/examsheet', 'ExamController@index')->middleware([RedirectIfExamCodeNotSet::class, RedirectIfExamFinished::class]);
     Route::get('/confirm', 'ExamController@confirm')->middleware(RedirectIfExamCodeSet::class);
     Route::get('/result/{exam_code}', 'ExamController@result')->middleware();
+    Route::post('/api/exam/details', 'ExamController@getexamdetails');
     Route::post('/api/codegenerator', 'ExamController@store');
     Route::post('/api/exam/proceed', 'ExamController@proceed');
     Route::post('/api/exam/getquestion', 'ExamController@getquestion');
