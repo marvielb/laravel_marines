@@ -32,45 +32,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Mathematics</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>History</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>Science and Technology</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>Communication Arts</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>Total</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
+            <tr
+              v-for="grouping in exam_result_grouped"
+              :key="grouping.description"
+            >
+              <td>{{ grouping.description }}</td>
+              <td>?</td>
+              <td>{{ grouping.total_items }}</td>
+              <td>{{ grouping.correct_answers }}</td>
+              <td>{{ grouping.total_items - grouping.correct_answers }}</td>
+              <td>?</td>
             </tr>
           </tbody>
         </table>
@@ -132,6 +103,7 @@ export default {
       total_items: 0,
       correct_answers: 0,
       exam: {},
+      exam_result_grouped: [],
     };
   },
   computed: {
@@ -175,6 +147,7 @@ export default {
       this.total_items = res.data.total_items;
       this.correct_answers = res.data.correct_answers;
       this.exam = res.data.exam;
+      this.exam_result_grouped = res.data.exam_result_grouped;
       console.log(this.exam);
     } catch {
       alertify.error("Results: Internal Server Error(1)");

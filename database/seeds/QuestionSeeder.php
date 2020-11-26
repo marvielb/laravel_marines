@@ -2,6 +2,7 @@
 
 use App\Question;
 use App\Choice;
+use App\QuestionClassification;
 use Illuminate\Database\Seeder;
 
 class QuestionSeeder extends Seeder
@@ -13,10 +14,12 @@ class QuestionSeeder extends Seeder
      */
     public function run()
     {
-        factory(Question::class,20)->create()->each(function ($question) {
-            $choices = factory(Choice::class,4)->make()->toArray();
+        $classifications = factory(QuestionClassification::class, 4)->create();
+        factory(Question::class, 20)->create()->each(function ($question) use ($classifications) {
+            $choices = factory(Choice::class, 4)->make()->toArray();
             $savedChoices = $question->choices()->createMany($choices);
-            $question['correct_choice_id'] = $savedChoices[rand(0,3)]['id'];
+            $question['correct_choice_id'] = $savedChoices[rand(0, 3)]['id'];
+            $question['classification_id'] = $classifications[rand(0, 3)]['id'];
             $question->save();
         });
     }

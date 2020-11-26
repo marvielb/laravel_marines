@@ -204,7 +204,24 @@ class ExamController extends Controller
                         ) AS correct_answers')
             )->where('exam_id', $exam['id'])->first();
 
+        $examResultGroupings = DB::table('exam_questions')
+            ->select(
+                DB::raw('question_classifications.description'),
+                DB::raw('COUNT(*) as total_items'),
+                DB::raw('SUM(
+                        CASE WHEN answer_id = (SELECT correct_choice_id FROM questions WHERE id = exam_questions.question_id)
+                            THEN 1
+                            ELSE 0
+                        END) AS correct_answers')
+            )
+            ->join('questions', 'exam_questions.question_id', '=', 'questions.id')
+            ->join('question_classifications', 'questions.classification_id', '=', 'question_classifications.id')
+            ->where('exam_id', $exam['id'])
+            ->groupBy('questions.classification_id')
+            ->get();
+
         return [
+            'exam_result_grouped' => $examResultGroupings->toArray(),
             'total_items' => (int)$examResults->total_items,
             'correct_answers' => (int)$examResults->correct_answers,
             'exam' => $exam,
