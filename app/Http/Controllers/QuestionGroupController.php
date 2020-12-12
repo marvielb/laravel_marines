@@ -81,7 +81,7 @@ class QuestionGroupController extends Controller
     public function update(Request $request, QuestionGroup $questiongroup)
     {
         $validatedRequest = $request->validate([
-            'description' => 'required|unique:question_groups'
+            'description' => 'required|unique:question_groups,description,' . $questiongroup['id']
         ]);
         return $questiongroup->update($validatedRequest);
     }

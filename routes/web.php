@@ -49,6 +49,11 @@ Route::middleware(['preventbackbutton', 'auth'])->group(function () {
     Route::get('/api/ranks', 'RankController@pagination');
     Route::get('/api/ranks/{rank}', 'RankController@edit');
 
+    Route::resource('/questionclassifications', 'QuestionClassificationController');
+    Route::get('/api/questionclassifications/all', 'QuestionClassificationController@all');
+    Route::get('/api/questionclassifications', 'QuestionClassificationController@pagination');
+    Route::get('/api/questionclassifications/{questionclassification}', 'QuestionClassificationController@edit');
+
     Route::resource('/questions', 'QuestionController');
     Route::get('/api/questions', 'QuestionController@pagination');
     Route::get('/api/questions/{question}', 'QuestionController@edit');

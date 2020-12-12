@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Pager;
 
 class QuestionController extends Controller
@@ -32,7 +33,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        abort(404);
+        return DB::table('question_classifications')->get();
     }
 
     /**
@@ -43,8 +44,9 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-         $validatedRequest = $request->validate([
-            'body' => 'required|unique:questions'
+        $validatedRequest = $request->validate([
+            'body' => 'required|unique:questions',
+            'classification_id' => 'required',
         ]);
         return Question::create($validatedRequest);
     }
@@ -81,7 +83,8 @@ class QuestionController extends Controller
     public function update(Request $request, Question $question)
     {
         $validatedRequest = $request->validate([
-            'body' => 'required|unique:questions'
+            'body' => 'required|unique:questions,body,' . $question['id'],
+            'classification_id' => 'required',
         ]);
         return $question->update($validatedRequest);
     }

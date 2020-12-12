@@ -243,6 +243,11 @@ return [
             'icon' => 'fas fa-fw fa-trophy',
         ],
         [
+            'text' => 'question_classifications',
+            'url'  => 'questionclassifications',
+            'icon' => 'fas fa-fw fa-question-circle',
+        ],
+        [
             'text' => 'questions',
             'url'  => 'questions',
             'icon' => 'fas fa-fw fa-question',

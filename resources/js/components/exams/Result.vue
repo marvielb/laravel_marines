@@ -10,11 +10,13 @@
         />
       </div>
       <div class="col-9">
-        <div class="row">Name: Manuel, Arni Nickard A.</div>
-        <div class="row">Serial No: 123</div>
-        <div class="row">Rank: None</div>
-        <div class="row">Class: 2020</div>
-        <div class="row">Examination Code: 123456789</div>
+        <div class="row">
+          Name: {{ exam.examinee.last_name }}, {{ exam.examinee.first_name }}
+        </div>
+        <div class="row">Serial No: {{ exam.examinee.marine_number }}</div>
+        <div class="row">Rank: {{ exam.examinee.rank.description }}</div>
+        <div class="row">Class: ?</div>
+        <div class="row">Examination Code: {{ exam.code }}</div>
       </div>
     </div>
     <!-- Results -->
@@ -37,7 +39,9 @@
               :key="grouping.description"
             >
               <td>{{ grouping.description }}</td>
-              <td>?</td>
+              <td>
+                {{ ((grouping.total_items / total_items) * 100).toFixed(0) }}
+              </td>
               <td>{{ grouping.total_items }}</td>
               <td>{{ grouping.correct_answers }}</td>
               <td>{{ grouping.total_items - grouping.correct_answers }}</td>

@@ -24,7 +24,7 @@ class RankController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['preventbackbutton','auth']);
+        $this->middleware(['preventbackbutton', 'auth']);
     }
 
     public function index()
@@ -33,7 +33,8 @@ class RankController extends Controller
     }
 
 
-    public function all() {
+    public function all()
+    {
         return Rank::all();
     }
 
@@ -93,7 +94,7 @@ class RankController extends Controller
     public function update(Request $request, Rank $rank)
     {
         $validatedRequest = $request->validate([
-            'description' => 'required|unique:ranks'
+            'description' => 'required|unique:ranks,description,' . $rank['id']
         ]);
 
         return $rank->update($validatedRequest);
@@ -109,5 +110,4 @@ class RankController extends Controller
     {
         $rank->delete();
     }
-
 }

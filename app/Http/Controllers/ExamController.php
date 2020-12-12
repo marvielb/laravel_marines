@@ -190,6 +190,7 @@ class ExamController extends Controller
         ]);
 
         $exam = Exam::where('code', $validated['code'])
+            ->with(['examinee.rank'])
             ->first();
 
         $examResults = DB::table('exam_questions')

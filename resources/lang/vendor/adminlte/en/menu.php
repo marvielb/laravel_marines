@@ -25,4 +25,5 @@ return [
     'exam_sheet'                    => 'Exam Sheet',
     'others'                        => 'OTHERS',
     'code_generator'                => 'Code Generator',
+    'question_classifications'      => 'Question Classifications',
 ];

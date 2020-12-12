@@ -25,6 +25,11 @@ Vue.component(
 );
 
 Vue.component(
+    "question-classification-pager",
+    require("./components/question-classifications/QuestionClassificationPager.vue").default
+);
+
+Vue.component(
     "question-pager",
     require("./components/questions/QuestionPager.vue").default
 );

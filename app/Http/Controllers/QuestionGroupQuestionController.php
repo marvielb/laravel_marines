@@ -22,9 +22,9 @@ class QuestionGroupQuestionController extends Controller
     public function Pagination($questiongroupid)
     {
         $mod_query = $this->query()
-                          ->join('questions', 'question_group_questions.question_id', '=', 'questions.id')
-                          ->where('question_group_questions.question_group_id','=', $questiongroupid)
-                          ->select('questions.*');
+            ->join('questions', 'question_group_questions.question_id', '=', 'questions.id')
+            ->where('question_group_questions.question_group_id', '=', $questiongroupid)
+            ->select('questions.*');
         return $this->Paginate($mod_query);
     }
 
@@ -48,9 +48,9 @@ class QuestionGroupQuestionController extends Controller
     {
         return DB::table('questions')->whereNotExists(function ($query) use ($questiongroup) {
             $query->select(DB::raw(1))
-                  ->from('question_group_questions')
-                  ->whereRaw('question_group_questions.question_id = questions.id')
-                  ->where('question_group_questions.question_group_id', '=', $questiongroup['id']);
+                ->from('question_group_questions')
+                ->whereRaw('question_group_questions.question_id = questions.id')
+                ->where('question_group_questions.question_group_id', '=', $questiongroup['id']);
         })->get();
     }
 
@@ -112,8 +112,8 @@ class QuestionGroupQuestionController extends Controller
     public function destroy(QuestionGroup $questiongroup, Question $question)
     {
         return DB::table('question_group_questions')
-                   ->where('question_group_id', '=', $questiongroup['id'])
-                   ->where('question_id', '=', $question['id'])
-                   ->delete();
+            ->where('question_group_id', '=', $questiongroup['id'])
+            ->where('question_id', '=', $question['id'])
+            ->delete();
     }
 }
