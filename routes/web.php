@@ -85,16 +85,22 @@ Route::middleware(['preventbackbutton', 'auth'])->group(function () {
     Route::get('/api/users/{user}', 'UserController@edit');
 
 
-    Route::get('/codegenerator', 'ExamController@create');
+    //Exam Code Generator
+    Route::get('/codegenerator', 'ExamCodeGeneratorController@create');
+    Route::post('/api/codegenerator', 'ExamCodeGeneratorController@store');
+
+    //Exam confirmation
+    Route::get('/confirm', 'ExamConfirmationController@index')->middleware(RedirectIfExamCodeSet::class);
+    Route::post('/api/confirm', 'ExamConfirmationController@edit');
+
+    //Actual Exam
     Route::get('/examsheet', 'ExamController@index')->middleware([RedirectIfExamCodeNotSet::class, RedirectIfExamFinished::class]);
-    Route::get('/confirm', 'ExamController@confirm')->middleware(RedirectIfExamCodeSet::class);
-    Route::get('/result/{exam_code}', 'ExamController@result')->middleware();
     Route::post('/api/exam/details', 'ExamController@getexamdetails');
-    Route::post('/api/codegenerator', 'ExamController@store');
-    Route::post('/api/exam/proceed', 'ExamController@proceed');
     Route::post('/api/exam/getquestion', 'ExamController@getquestion');
     Route::post('/api/exam/answerquestion', 'ExamController@answerquestion');
-    Route::post('/api/exam/results', 'ExamController@getexamresults');
-    Route::get('/api/exam/{code}', 'ExamController@show');
     Route::post('/api/exam/done', 'ExamController@doneexam');
+
+    //Results
+    Route::get('/result/{exam_code}', 'ExamResultController@index')->middleware();
+    Route::post('/api/exam/results', 'ExamResultController@getexamresults');
 });

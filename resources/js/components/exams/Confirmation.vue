@@ -36,7 +36,7 @@ export default {
     async onProceedClick() {
       try {
         const code = this.code;
-        const res = await axios.post("/api/exam/proceed", { code });
+        const res = await axios.post("/api/confirm", { code });
         window.location.href = "/examsheet";
       } catch (err) {
         alertify.error("Exam Code does not exists");
