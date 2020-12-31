@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -48,6 +50,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static $logAttributes = [
+        'marine_number', 'email', 'password',
+        'rank_id',
+        'first_name',
+        'last_name',
+        'middle_name',
+        'suffix',
+        'birth_place',
+        'nationality',
+        'birthday',
+        'highest_career_course',
+        'address',
+        'gender',
+        'last_promotion',
+    ];
+    protected static $logOnlyDirty = true;
 
     public function rank()
     {

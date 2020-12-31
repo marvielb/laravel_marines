@@ -3,13 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Exam extends Model
 {
+    use LogsActivity;
+
     protected $fillable = [
         'user_id',
         'code'
     ];
+
+    protected static $logAttributes = ['*'];
+
+    protected static $logOnlyDirty = true;
 
     public function exam_questions()
     {
