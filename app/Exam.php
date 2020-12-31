@@ -20,4 +20,9 @@ class Exam extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function getIsFinishedAttribute($value)
+    {
+        return $this->finished_at != null;
+    }
 }

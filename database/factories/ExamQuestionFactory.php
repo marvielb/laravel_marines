@@ -2,13 +2,15 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Choice;
+use App\Exam;
+use App\ExamQuestion;
 use App\Question;
 use Faker\Generator as Faker;
 
-$factory->define(Choice::class, function (Faker $faker) {
+$factory->define(ExamQuestion::class, function (Faker $faker) {
     return [
+        'exam_id' => factory(Exam::class),
         'question_id' => factory(Question::class),
-        'body' => $faker->sentence()
+        'answer_id' => factory(Choice::class),
     ];
 });
