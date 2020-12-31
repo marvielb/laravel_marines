@@ -14,6 +14,7 @@ class Question extends Model
     protected $hidden = ['correct_choice_id'];
 
     protected static $logAttributes = ['body', 'correct_choice_id', 'classification_id'];
+    protected static $logOnlyDirty = true;
 
     public function choices()
     {
