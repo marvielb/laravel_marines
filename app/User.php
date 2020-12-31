@@ -49,7 +49,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function rank() {
+    public function rank()
+    {
         return $this->belongsTo('App\Rank', 'rank_id');
+    }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->last_name}, {$this->first_name} {$this->middle_name}";
     }
 }
