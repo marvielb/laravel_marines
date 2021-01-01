@@ -59,6 +59,9 @@ export default {
     is_form_valid: function () {
       return Object.keys(this.errors).length === 0;
     },
+    should_save_disabled: function () {
+      return this.is_form_valid === false || this.is_form_dirty == false;
+    },
   },
   watch: {
     form_model: {

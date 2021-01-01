@@ -11,7 +11,7 @@
       <PagerFormComponent
         :show="form_visible"
         :title="'Question Form'"
-        :disabled_save="is_form_valid === false"
+        :disabled_save="should_save_disabled"
         @saveClick="onSaveClick"
         @closeClick="onCloseClick"
       >
