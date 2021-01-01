@@ -13,4 +13,9 @@ class QuestionGroupQuestion extends Model
 
     protected static $logAttributes = ['question_group_id', 'question_id'];
     protected static $logOnlyDirty = true;
+
+    public function question()
+    {
+        return $this->belongsTo('App\Question', 'question_id');
+    }
 }

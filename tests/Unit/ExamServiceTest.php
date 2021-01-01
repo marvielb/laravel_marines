@@ -58,10 +58,16 @@ class ExamServiceTest extends TestCase
         $user = factory(User::class)->create();
         $questionGroupRank = factory(QuestionGroupRank::class)->create(['rank_id' => $user['rank_id']]);
         $questions = factory(Question::class, 3)->create()->each(function ($question) use ($questionGroupRank) {
+            $choice = factory(Choice::class)->create([
+                'question_id' => $question['id']
+            ]);
             factory(QuestionGroupQuestion::class)->create([
                 'question_id' => $question['id'],
                 'question_group_id' => $questionGroupRank['question_group_id'],
             ]);
+            $questionSave = Question::find($question['id']);
+            $questionSave->correct_choice_id = $choice['id'];
+            $questionSave->save();
         });
         $exam = $this->examService->generateExamFor($user['marine_number']);
         $examQuestions = ExamQuestion::where('exam_id', $exam['id'])->get();
@@ -128,7 +134,7 @@ class ExamServiceTest extends TestCase
 
     public function testFinishExamMustThrowAnExceptionIfTheExamCodeIsNotFound()
     {
-        $exam = factory(ExamModel::class)->create([
+        factory(ExamModel::class)->create([
             'code' => 'legit code here',
         ]);
         $this->expectException(ModelNotFoundException::class);
@@ -151,6 +157,7 @@ class ExamServiceTest extends TestCase
         );
         $examQuestion = factory(ExamQuestion::class)->create([
             'question_id' => $question['id'],
+            'correct_answer_id' => $choice['id'],
             'answer_id' => null
         ]);
         $this->examService->answerQuestion($examQuestion['id'], $choice['id']);
@@ -167,6 +174,7 @@ class ExamServiceTest extends TestCase
         ]);
         $examQuestion = factory(ExamQuestion::class)->create([
             'question_id' => $question2['id'],
+            'correct_answer_id' => $choice['id'],
             'answer_id' => null
         ]);
         $this->expectException(AnswerDoesNotBelongToQuestionException::class);

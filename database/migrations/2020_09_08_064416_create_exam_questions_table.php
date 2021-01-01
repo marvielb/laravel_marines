@@ -17,11 +17,13 @@ class CreateExamQuestionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('exam_id');
             $table->unsignedBigInteger('question_id');
+            $table->unsignedBigInteger('correct_answer_id');
             $table->unsignedBigInteger('answer_id')->nullable();
             $table->timestamps();
 
             $table->foreign('exam_id')->references('id')->on('exams')->cascadeOnDelete();
             $table->foreign('question_id')->references('id')->on('questions');
+            $table->foreign('correct_answer_id')->references('id')->on('choices');
             $table->foreign('answer_id')->references('id')->on('choices');
         });
     }

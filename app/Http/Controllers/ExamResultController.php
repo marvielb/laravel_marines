@@ -28,7 +28,7 @@ class ExamResultController extends Controller
                 DB::raw('COUNT(*) AS total_items'),
                 DB::raw('
                         SUM(
-                        CASE WHEN answer_id = (SELECT correct_choice_id FROM questions WHERE id = exam_questions.question_id)
+                        CASE WHEN answer_id = correct_answer_id
                             THEN 1
                             ELSE 0
                         END
@@ -40,7 +40,7 @@ class ExamResultController extends Controller
                 DB::raw('question_classifications.description'),
                 DB::raw('COUNT(*) as total_items'),
                 DB::raw('SUM(
-                        CASE WHEN answer_id = (SELECT correct_choice_id FROM questions WHERE id = exam_questions.question_id)
+                        CASE WHEN answer_id = correct_answer_id
                             THEN 1
                             ELSE 0
                         END) AS correct_answers')

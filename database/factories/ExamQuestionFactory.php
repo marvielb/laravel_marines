@@ -11,6 +11,7 @@ $factory->define(ExamQuestion::class, function (Faker $faker) {
     return [
         'exam_id' => factory(Exam::class),
         'question_id' => factory(Question::class),
+        'correct_answer_id' => factory(Choice::class),
         'answer_id' => factory(Choice::class),
     ];
 });

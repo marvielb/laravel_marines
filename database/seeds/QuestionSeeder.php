@@ -16,7 +16,7 @@ class QuestionSeeder extends Seeder
     {
         $classifications = factory(QuestionClassification::class, 4)->create();
         factory(Question::class, 20)->create()->each(function ($question) use ($classifications) {
-            $choices = factory(Choice::class, 4)->make()->toArray();
+            $choices = factory(Choice::class, 4)->make(['question_id' => null])->toArray();
             $savedChoices = $question->choices()->createMany($choices);
             $question['correct_choice_id'] = $savedChoices[rand(0, 3)]['id'];
             $question['classification_id'] = $classifications[rand(0, 3)]['id'];

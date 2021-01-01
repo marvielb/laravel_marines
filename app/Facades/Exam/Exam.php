@@ -89,7 +89,9 @@ class Exam
         if ($questionGroupRank == null) {
             throw new RankNoQuestionGroupException("Cannot generate exam for {$marine_number} because the user's rank ({$user->rank->description}) does not belong to a question group");
         }
-        $questions = QuestionGroupQuestion::where('question_group_id', $questionGroupRank['question_group_id'])->get();
+        $questions = QuestionGroupQuestion::where('question_group_id', $questionGroupRank['question_group_id'])
+            ->with(['question'])
+            ->get();
         if (count($questions) == 0) {
             throw new QuestionGroupNoQuestionsException("Cannot generate exam for {$marine_number} because the user's rank question group ({$user->rank->question_group->description}) does not have questions");
         }
@@ -104,6 +106,7 @@ class Exam
             foreach ($questions as $question) {
                 $inserts[] = [
                     'exam_id' => $exam['id'],
+                    'correct_answer_id' => $question->question->correct_choice_id,
                     'question_id' => $question['question_id'],
                     'created_at' => $now,
                     'updated_at' => $now
