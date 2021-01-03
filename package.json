@@ -30,6 +30,7 @@
         "alertifyjs": "^1.13.1",
         "date-fns": "^2.16.1",
         "icheck-bootstrap": "^3.0.1",
-        "overlayscrollbars": "^1.13.0"
+        "overlayscrollbars": "^1.13.0",
+        "vue-image-upload-resize": "^2.3.0"
     }
 }

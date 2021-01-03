@@ -18,12 +18,62 @@
         <div class="form-group">
           <div class="row mb-3">
             <div class="col">
-              <img
+              <div
+                class="row mb-4"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  text-align: center;
+                "
+              >
+                <image-uploader
+                  :preview="false"
+                  :className="['fileinput', { 'fileinput--loaded': hasImage }]"
+                  capture="environment"
+                  :debug="1"
+                  doNotResize="gif"
+                  :autoRotate="true"
+                  outputFormat="verbose"
+                  @input="setImage"
+                >
+                  <label
+                    for="fileInput"
+                    slot="upload-label"
+                    style="display: flex"
+                  >
+                    <img
+                      :src="form_model.image"
+                      class="img-preview"
+                      style="max-width: 400px"
+                    />
+                    <div class="ml-2">
+                      <figure>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="32"
+                          height="32"
+                          viewBox="0 0 32 32"
+                        >
+                          <path
+                            class="path1"
+                            d="M9.5 19c0 3.59 2.91 6.5 6.5 6.5s6.5-2.91 6.5-6.5-2.91-6.5-6.5-6.5-6.5 2.91-6.5 6.5zM30 8h-7c-0.5-2-1-4-3-4h-8c-2 0-2.5 2-3 4h-7c-1.1 0-2 0.9-2 2v18c0 1.1 0.9 2 2 2h28c1.1 0 2-0.9 2-2v-18c0-1.1-0.9-2-2-2zM16 27.875c-4.902 0-8.875-3.973-8.875-8.875s3.973-8.875 8.875-8.875c4.902 0 8.875 3.973 8.875 8.875s-3.973 8.875-8.875 8.875zM30 14h-4v-2h4v2z"
+                          ></path>
+                        </svg>
+                      </figure>
+                      <span class="upload-caption">{{
+                        hasImage ? "Replace" : "Click to upload"
+                      }}</span>
+                    </div>
+                  </label>
+                </image-uploader>
+              </div>
+
+              <!-- <img
                 src="https://image.flaticon.com/icons/svg/892/892781.svg"
                 class="rounded mx-auto d-block"
                 alt="Responsive image"
                 style="max-width: 100px"
-              />
+              /> -->
             </div>
           </div>
           <div class="row">
@@ -274,6 +324,7 @@ import EditActionMixin from "../../mixins/EditActionMixin";
 import PagerMixin from "../../mixins/PagerMixin";
 import AddButtonMixin from "../../mixins/AddButtonMixin";
 import DeleteActionMixin from "../../mixins/DeleteActionMixin";
+import ImageUploader from "vue-image-upload-resize";
 
 export default {
   mixins: [
@@ -300,9 +351,11 @@ export default {
         address: "",
         gender: "",
         last_promotion: "",
+        image: "",
       },
       endpoint: "/users",
       headers: {
+        image: "Image",
         marine_number: "Marine Number",
         last_name: "Last Name",
         first_name: "First Name",
@@ -310,6 +363,7 @@ export default {
         rank: "Rank",
       },
       all_ranks: [],
+      hasImage: false,
     };
   },
   computed: {
@@ -322,7 +376,18 @@ export default {
     },
   },
   methods: {
+    setImage: function (output) {
+      this.hasImage = true;
+      this.form_model.image = output.dataUrl;
+    },
     validateForm: function () {
+      if (this.form_model["image"].length === 0) {
+        this.errors["image"] = [
+          "This field is required",
+          ...(this.errors["image"] || []),
+        ];
+      }
+
       if (this.form_model["marine_number"].length === 0) {
         this.errors["marine_number"] = [
           "This field is required",
@@ -365,6 +430,17 @@ export default {
   mounted: function () {
     this.getAllRanks();
   },
-  components: { PagerComponent, PagerFormComponent, InputComponent },
+  components: {
+    PagerComponent,
+    PagerFormComponent,
+    InputComponent,
+    ImageUploader,
+  },
 };
 </script>
+
+<style>
+#fileInput {
+  display: none;
+}
+</style>

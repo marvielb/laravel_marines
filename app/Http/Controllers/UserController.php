@@ -22,8 +22,8 @@ class UserController extends Controller
     {
         $tableName = $this->tableName();
         return DB::table($tableName)
-                    ->leftJoin('ranks', 'users.rank_id', '=','ranks.id')
-                    ->select(['users.*', 'ranks.description AS rank']);
+            ->leftJoin('ranks', 'users.rank_id', '=', 'ranks.id')
+            ->select(['users.*', 'ranks.description AS rank']);
     }
 
     public function index()
@@ -31,7 +31,7 @@ class UserController extends Controller
         return view('user.index');
     }
 
-        /**
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -52,6 +52,7 @@ class UserController extends Controller
         $validatedRequest = $request->validate([
             'marine_number' => 'required|unique:users',
             'rank_id' => 'required|exists:ranks,id',
+            'image' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
             'middle_name' => 'nullable',
@@ -100,8 +101,9 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $validatedRequest = $request->validate([
-            'marine_number' => 'required|unique:users,marine_number,'. $user['id'],
+            'marine_number' => 'required|unique:users,marine_number,' . $user['id'],
             'rank_id' => 'required|exists:ranks,id',
+            'image' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
             'middle_name' => 'nullable',
@@ -114,7 +116,6 @@ class UserController extends Controller
             'gender' => 'nullable',
             'last_promotion' => 'nullable',
         ]);
-
         return $user->update($validatedRequest);
     }
 
