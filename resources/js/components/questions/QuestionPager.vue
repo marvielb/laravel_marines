@@ -6,7 +6,6 @@
         :headers="headers"
         :actions="actions"
         :endpoint="api_endpoint"
-        :bus="child_bus"
       />
       <PagerFormComponent
         :show="form_visible"

@@ -43,6 +43,7 @@ export default {
           alertify.success("Successfully Saved!", 3);
         })
         .catch((result) => {
+          console.log(result);
           if (result.response.data.errors) {
             this.errors = result.response.data.errors;
           } else {

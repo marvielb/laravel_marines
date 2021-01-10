@@ -38,7 +38,10 @@ export default {
   methods: {
     onSearchClick() {
       const { field, searchText } = this;
-      this.$emit("search", field, searchText);
+      this.$store.dispatch("pager/setSearchParams", {
+        searchField: field,
+        searchTerm: searchText,
+      });
     },
   },
 };

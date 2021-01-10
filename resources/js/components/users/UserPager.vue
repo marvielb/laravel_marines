@@ -15,7 +15,6 @@
           :headers="headers"
           :actions="actions"
           :endpoint="api_endpoint"
-          :bus="child_bus"
         />
         <PagerFormComponent
           :show="form_visible"
@@ -398,12 +397,6 @@ export default {
     },
   },
   methods: {
-    reloadPager: function () {
-      this.child_bus.$emit("reload");
-      this.clearForm();
-      this.hideForm();
-    },
-    onPagerSearch: function (field, searchText) {},
     setImage: function (output) {
       this.hasImage = true;
       this.form_model.image = output.dataUrl;
