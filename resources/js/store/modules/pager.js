@@ -54,7 +54,7 @@ const actions = {
     commit('setEndPoint', { endpoint });
     dispatch('getContents');
   },
-  async setSearchParams({ commit }, { searchField, searchTerm }) {
+  async setSearchParams({ commit, dispatch }, { searchField, searchTerm }) {
     commit('setSearchParams', { searchField, searchTerm })
     dispatch('getContents');
   }

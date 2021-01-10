@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <div class="row justify-content-end">
-      <button class="btn btn-primary mb-3" @click="onAddClick()">Add</button>
+      <div class="row justify-content-between" style="width: 100%">
+        <button class="btn btn-primary mb-3" @click="onAddClick()">Add</button>
+        <pager-search-component :fields="searchFields"></pager-search-component>
+      </div>
       <PagerComponent
         :headers="headers"
         :actions="actions"
@@ -38,6 +41,7 @@
 import PagerComponent from "../shared/pager/PagerComponent.vue";
 import PagerFormComponent from "../shared/pager/PagerFormComponent";
 import InputComponent from "../shared/forms/InputComponent";
+import PagerSearchComponent from "../shared/pager/PagerSearchComponent";
 import PagerFormMixin from "../../mixins/PagerFormMixin";
 import EditActionMixin from "../../mixins/EditActionMixin";
 import PagerMixin from "../../mixins/PagerMixin";
@@ -58,8 +62,16 @@ export default {
         description: "",
       },
       endpoint: "/questionclassifications",
-      headers: { description: "DESCRIPTION" },
+      headers: { description: "Description" },
     };
+  },
+  computed: {
+    searchFields: function () {
+      return Object.keys(this.headers).map((v) => ({
+        name: v,
+        description: this.headers[v],
+      }));
+    },
   },
   methods: {
     validateForm: function () {
@@ -71,6 +83,11 @@ export default {
       }
     },
   },
-  components: { PagerComponent, PagerFormComponent, InputComponent },
+  components: {
+    PagerComponent,
+    PagerFormComponent,
+    InputComponent,
+    PagerSearchComponent,
+  },
 };
 </script>
