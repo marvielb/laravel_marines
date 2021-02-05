@@ -13,6 +13,11 @@ class ExamResultController extends Controller
         return view('exam.result', ['exam_code' => $exam_code]);
     }
 
+    public function back(Request $request)
+    {
+        $request->session()->forget('active_exam_code');
+    }
+
     public function getexamresults(Request $request)
     {
         $validated = $request->validate([

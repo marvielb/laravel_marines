@@ -103,4 +103,5 @@ Route::middleware(['preventbackbutton', 'auth'])->group(function () {
     //Results
     Route::get('/result/{exam_code}', 'ExamResultController@index')->middleware();
     Route::post('/api/exam/results', 'ExamResultController@getexamresults');
+    Route::post('/api/exam/results/back', 'ExamResultController@back');
 });

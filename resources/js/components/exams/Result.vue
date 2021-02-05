@@ -9,7 +9,7 @@
           alt="Responsive image"
         />
       </div>
-      <div class="col-9">
+      <div class="col-8">
         <div class="row">
           Name: {{ exam.examinee.last_name }}, {{ exam.examinee.first_name }}
         </div>
@@ -17,6 +17,11 @@
         <div class="row">Rank: {{ exam.examinee.rank.description }}</div>
         <div class="row">Class: ?</div>
         <div class="row">Examination Code: {{ exam.code }}</div>
+      </div>
+      <div class="col-1" style="text-align: right">
+        <button class="btn btn-marines-primary" @click="onBackClick()">
+          Back
+        </button>
       </div>
     </div>
     <!-- Results -->
@@ -157,7 +162,16 @@ export default {
       alertify.error("Results: Internal Server Error(1)");
     }
   },
-  methods: {},
+  methods: {
+    async onBackClick() {
+      try {
+        const res = await axios.post("/api/exam/results/back");
+        window.location.href = "/examsheet";
+      } catch (err) {
+        alertify.error("Exam Code does not exists");
+      }
+    },
+  },
 };
 </script>
 
