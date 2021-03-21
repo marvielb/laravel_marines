@@ -1,4 +1,5 @@
 {
+    "name": "Ls-Marines",
     "private": true,
     "scripts": {
         "dev": "npm run development",
@@ -9,10 +10,6 @@
         "postinstall": "npm run prod",
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-    },
-    "engines": {
-        "node": "12.16",
-        "npm": "6.13"
     },
     "devDependencies": {
         "axios": "^0.21.1",
