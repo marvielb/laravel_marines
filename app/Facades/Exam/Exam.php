@@ -13,6 +13,7 @@ use App\Exceptions\AnswerDoesNotBelongToQuestionException;
 use App\Exceptions\ExamFinishedException;
 use App\Exceptions\QuestionGroupNoQuestionsException;
 use App\Exceptions\RankNoQuestionGroupException;
+use App\Exceptions\UserNoRankException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 
@@ -85,6 +86,14 @@ class Exam
         if ($user == null) {
             throw new ModelNotFoundException('Marine Number ' . $marine_number . ' does not exists');
         }
+        if (!$user->rank) {
+            throw new UserNoRankException();
+        }
+
+        if (!$user->rank->question_group) {
+            throw new ModelNotFoundException("User's Rank {$user->rank->description} does not belong to a question group");
+        }
+
         $questionGroupRank = QuestionGroupRank::where('rank_id', $user['rank_id'])->first();
         if ($questionGroupRank == null) {
             throw new RankNoQuestionGroupException("Cannot generate exam for {$marine_number} because the user's rank ({$user->rank->description}) does not belong to a question group");
