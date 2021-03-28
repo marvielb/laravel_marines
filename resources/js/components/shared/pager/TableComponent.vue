@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     isImage: function (text) {
-      return text.startsWith("data:image");
+      return text ? text.startsWith("data:image") : false;
     },
   },
 };
