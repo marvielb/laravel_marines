@@ -90,10 +90,6 @@ class Exam
             throw new UserNoRankException();
         }
 
-        if (!$user->rank->question_group) {
-            throw new ModelNotFoundException("User's Rank {$user->rank->description} does not belong to a question group");
-        }
-
         $questionGroupRank = QuestionGroupRank::where('rank_id', $user['rank_id'])->first();
         if ($questionGroupRank == null) {
             throw new RankNoQuestionGroupException("Cannot generate exam for {$marine_number} because the user's rank ({$user->rank->description}) does not belong to a question group");
@@ -102,7 +98,7 @@ class Exam
             ->with(['question'])
             ->get();
         if (count($questions) == 0) {
-            throw new QuestionGroupNoQuestionsException("Cannot generate exam for {$marine_number} because the user's rank question group ({$user->rank->question_group->description}) does not have questions");
+            throw new QuestionGroupNoQuestionsException("Cannot generate exam for {$marine_number} because the user's rank question group does not have questions");
         }
         DB::beginTransaction();
         try {
