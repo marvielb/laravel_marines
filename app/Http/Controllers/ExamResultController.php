@@ -53,7 +53,7 @@ class ExamResultController extends Controller
             ->join('questions', 'exam_questions.question_id', '=', 'questions.id')
             ->join('question_classifications', 'questions.classification_id', '=', 'question_classifications.id')
             ->where('exam_id', $exam['id'])
-            ->groupBy('questions.classification_id')
+            ->groupBy('question_classifications.id')
             ->get();
 
         return [
