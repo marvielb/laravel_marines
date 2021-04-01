@@ -23,7 +23,7 @@ Auth::routes();
 Route::middleware(['preventbackbutton', 'guest'])->group(function () {
 
     Route::get('/', function () {
-        return view('welcome');
+        return redirect('/login');
     });
 
     Route::get('/applicants', 'ApplicantController@create');

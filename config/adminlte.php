@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Marines</b> Exam',
+    'logo' => 'Marines Exam Portal',
     'logo_img' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Seal_of_the_Philippine_Marine_Corps.svg/1200px-Seal_of_the_Philippine_Marine_Corps.svg.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
