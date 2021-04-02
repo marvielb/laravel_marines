@@ -26,4 +26,6 @@ return [
     'others'                        => 'OTHERS',
     'code_generator'                => 'Code Generator',
     'question_classifications'      => 'Question Classifications',
+    'system_parameters'             => 'SYSTEM PARAMETERS',
+    'sms_sender'                    => 'SMS Sender'
 ];

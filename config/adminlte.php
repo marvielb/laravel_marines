@@ -231,6 +231,12 @@ return [
     */
 
     'menu' => [
+        ['header' => 'system_parameters'],
+        [
+            'text' => 'sms_sender',
+            'url'  => 'smssender',
+            'icon' => 'fas fa-fw fa-comments'
+        ],
         ['header' => 'master_files'],
         [
             'text' => 'marines_personnel',
