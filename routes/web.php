@@ -104,4 +104,9 @@ Route::middleware(['preventbackbutton', 'auth'])->group(function () {
     Route::get('/result/{exam_code}', 'ExamResultController@index')->middleware();
     Route::post('/api/exam/results', 'ExamResultController@getexamresults');
     Route::post('/api/exam/results/back', 'ExamResultController@back');
+
+
+    //SMS Sender
+    Route::get('/smssender', 'SMSSenderController@index');
+    Route::get('/api/smssender', 'SMSSenderController@pagination');
 });
