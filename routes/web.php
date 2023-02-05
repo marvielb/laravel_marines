@@ -22,9 +22,7 @@ Auth::routes();
 //  IF USER IS NOT LOGIN!
 Route::middleware(['preventbackbutton', 'guest'])->group(function () {
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    Route::get('/', 'HomeController@welcome');
 
     Route::get('/applicants', 'ApplicantController@create');
     Route::post('/applicants', 'ApplicantController@store');
