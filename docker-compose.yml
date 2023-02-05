@@ -4,8 +4,6 @@ services:
     user: root:root
     volumes:
       - laravel_marines:/usr/share/nginx/html
-    ports: 
-      - ":9000"
     environment:
       - APP_DEBUG=true
       - APP_KEY=base64:PhmDXkgWk++CcPUPaiTiOcupGuA6cC1Hc/CY5NozQBg=
@@ -29,8 +27,6 @@ services:
       - web
   db:
     image: mysql:5.7
-    ports: 
-      - ":3306"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
       - MYSQL_DATABASE=laravel_marines
