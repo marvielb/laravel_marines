@@ -1,0 +1,43 @@
+services:
+  web:
+    build: .
+    user: root:root
+    volumes:
+      - laravel_marines:/usr/share/nginx/html
+    ports: 
+      - ":9000"
+    environment:
+      - APP_DEBUG=true
+      - APP_KEY=base64:PhmDXkgWk++CcPUPaiTiOcupGuA6cC1Hc/CY5NozQBg=
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=laravel_marines
+      - DB_USERNAME=root
+      - DB_PASSWORD=
+    depends_on:
+      - db
+  nginx:
+    image: nginx:1.23
+    user: root:root
+    ports: 
+      - "8000:80"
+    volumes: 
+      - laravel_marines:/usr/share/nginx/html
+      - "./nginx.conf:/etc/nginx/nginx.conf"
+    depends_on:
+      - web
+  db:
+    image: mysql:5.7
+    ports: 
+      - ":3306"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_DATABASE=laravel_marines
+    volumes:
+      - laravel_marines_db:/var/lib/mysql
+
+
+volumes:
+  laravel_marines:
+  laravel_marines_db:
