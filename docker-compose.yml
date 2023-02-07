@@ -21,6 +21,7 @@ services:
       - MYSQL_DATABASE=laravel_marines
     volumes:
       - laravel_marines_db:/var/lib/mysql
+    command: --performance_schema=off
 
 
 volumes:
