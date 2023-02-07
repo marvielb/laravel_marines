@@ -2,8 +2,8 @@ services:
   web:
     build: .
     environment:
-      - APP_DEBUG=true
-      - APP_KEY=base64:PhmDXkgWk++CcPUPaiTiOcupGuA6cC1Hc/CY5NozQBg=
+      - APP_DEBUG=false
+      - APP_KEY=${MARINES_APP_KEY}
       - DB_CONNECTION=mysql
       - DB_HOST=db
       - DB_PORT=3306
