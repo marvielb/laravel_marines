@@ -9,6 +9,7 @@ services:
       - DB_DATABASE=laravel_marines
       - DB_USERNAME=root
       - DB_PASSWORD=
+    env_file: ./.env
     depends_on:
       - db
     ports:
