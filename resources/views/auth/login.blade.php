@@ -56,6 +56,13 @@
                             </a>
                         </div>
                     </div>
+		  <div style="font-size: 12px;opacity: 0.3;padding: 0.375rem;">
+				<a>
+				Sample User: <br>
+				Serial No: 123 <br>
+				Password: password
+                            </a>
+		</div>
                 </form>
             </div>
         </div>
