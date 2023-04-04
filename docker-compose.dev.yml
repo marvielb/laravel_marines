@@ -1,0 +1,35 @@
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      - APP_DEBUG=true
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=laravel_marines
+      - DB_USERNAME=root
+      - DB_PASSWORD=
+    env_file: ./.env
+    depends_on:
+      - db
+    volumes:
+      - ./:/usr/share/nginx/html
+      - /usr/share/nginx/html/node_modules
+      - /usr/share/nginx/html/vendor
+    ports:
+      - "8000:8000"
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_DATABASE=laravel_marines
+    volumes:
+      - laravel_marines_db:/var/lib/mysql
+    command: --performance_schema=off
+    restart: always
+
+
+volumes:
+  laravel_marines_db:

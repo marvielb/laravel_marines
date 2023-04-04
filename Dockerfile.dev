@@ -1,0 +1,25 @@
+FROM wyveo/nginx-php-fpm:php74
+
+# Copy start.sh and make it executable
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+# Install curl and Node.js 14
+RUN  \
+    apt-get update && apt-get install -y curl && \
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    apt-get install -y nodejs
+
+# Install Node.js dependencies
+WORKDIR /usr/share/nginx/html
+COPY package.json package-lock.json ./
+RUN npm install
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY composer.json composer.lock ./
+RUN composer install --no-autoloader 
+
+EXPOSE 8000
+
+# Execute start.sh
+CMD ["/start.sh"]
