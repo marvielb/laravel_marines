@@ -7,15 +7,13 @@ require 'recipe/laravel.php';
 // Config
 
 set('repository', 'https://github.com/marvielb/laravel_marines.git');
+set('bin/composer', '/etc/profiles/per-user/{{remote_user}}/bin/composer');
+set('bin/php', '/etc/profiles/per-user/{{remote_user}}/bin/php');
+set('keep_releases', 1);
 
 add('shared_files', []);
 add('shared_dirs', []);
 add('writable_dirs', []);
-
-task('npm:build', function () {
-    run('cd {{release_path}} && npm install');
-    run('cd {{release_path}} && npm run prod');
-})->desc('Compile npm files locally');
 
 // Hosts
 host('exam.marvielb.com')
@@ -23,16 +21,14 @@ host('exam.marvielb.com')
     ->set('port', 1023)
     ->set('deploy_path', '~/');
 
-// Hooks
-after('deploy:update_code', function () {
-    $file_contents = file_get_contents('./.env', FILE_TEXT);
-    run('touch ./shared/.env');
-    run("echo '{$file_contents}' > ./shared/.env");
-});
+// Tasks
+task('npm:build', function () {
+    runLocally('nix develop --command bash -c "npm install"');
+    runLocally('nix develop --command bash -c "npm run prod"');
+    upload('./public/', '{{release_path}}/public');
+})->desc('Build npm files locally');
 
-after('deploy:vendors', function () {
-    run('cd release && composer install');
-});
+// Hooks
 after('deploy:vendors', 'npm:build');
 
 after('deploy:failed', 'deploy:unlock');
