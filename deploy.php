@@ -16,7 +16,7 @@ add('shared_dirs', []);
 add('writable_dirs', []);
 
 // Hosts
-host('aws.box')
+host('aws.box') //set this in /etc/hosts
     ->set('remote_user', 'exam')
     ->set('port', 1023)
     ->set('deploy_path', '~/');

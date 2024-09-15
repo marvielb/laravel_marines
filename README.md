@@ -14,12 +14,12 @@
 </p>
 </h3>
 
-
-
 ## About
+
 This project is a proposed examination system for Philippine Marines. It features a unique system that is tailored to the department's needs. It is made with Laravel 7. The frontend was made using vuejs and has a custom made pagination. The main UI is styled using bootstrap. For the database, it uses Mysql 5.7. The whole program is containerized including the database using docker compose to easily reproduce the environment required by the program. A `dev` variant of docker compose and dockerfile is included intended for development of this system.
 
 ## Demo
+
 Click <a href="https://exam.marvielb.com">here</a> to experience a live demo
 
 ## Tutorial
@@ -36,13 +36,11 @@ Do take note and copy the examination code that will pop up.
 
 ![Code Generator Page](https://github.com/marvielb/laravel_marines/assets/50162243/f564b4f6-6b81-4903-b863-7bd2962cc431)
 
-
 ### 2. Taking the exam
 
 After generating the examination code, head over to the [Exam Sheet](https://exam.marvielb.com/confirm) page and put the examination code that generated earlier, then hit Proceed.
 
 ![Exam Sheet Page](https://github.com/marvielb/laravel_marines/assets/50162243/96577e08-802e-451a-b393-b0842dfadff6)
-
 
 ### 3. Examination
 
@@ -50,16 +48,14 @@ The examination will start, select the correct answer then proceed
 
 ![Exam Page](https://github.com/marvielb/laravel_marines/assets/50162243/d877ed66-51e2-4638-a99d-02f0b6cdf6e9)
 
-
 ### 4. Result
 
 The result will be displayed
 
 ![Result Page](https://github.com/marvielb/laravel_marines/assets/50162243/263e100c-c66d-40e6-84e1-c057bb98147d)
 
-
-
 ## Installation
+
 The only requirement is docker. Everything is containerized so you don't have to install anything besides it.
 
 ```bash
@@ -81,7 +77,7 @@ $ docker compose exec web php artisan migrate:fresh --seed
 
 ## How To Use
 
-Assuming you have followed the installation instructions, the program will be served on `http://localhost:8000/`.  You can go right ahead and login using the following credentials:
+Assuming you have followed the installation instructions, the program will be served on `http://localhost:8000/`. You can go right ahead and login using the following credentials:
 
 ```
 Username: 123
@@ -89,3 +85,10 @@ Password: password
 ```
 
 After that, head over to the code generator to generate a exam code. Just input `123` to the Marines Exam Code for the sample data. Then head over to Exam Sheet to Take an Exam and paste the generated exam code.
+
+## Deployment
+
+-   Set `aws.box` host in the `/etc/hosts` file
+-   Run `nix develop` to open the nix shell used for development
+-   Run `./vendor/bin/dep deploy` to deploy the project
+-   (Optional) For seeding, connect to the host, then run `composer install` then `php artisan migrates:fresh --seed`.
