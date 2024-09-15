@@ -16,7 +16,7 @@ add('shared_dirs', []);
 add('writable_dirs', []);
 
 // Hosts
-host('exam.marvielb.com')
+host('aws.box')
     ->set('remote_user', 'exam')
     ->set('port', 1023)
     ->set('deploy_path', '~/');
