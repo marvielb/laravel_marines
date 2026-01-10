@@ -1,5 +1,5 @@
 {
-   description = "A flake that's used to develop this project";
+  description = "A flake that's used to develop this project";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/99fcf0ee74957231ff0471228e9a59f976a0266b";
@@ -15,7 +15,7 @@
         with pkgs;
         {
           devShells.default = pkgs.mkShell {
-            buildInputs = [php74 nodejs];
+            buildInputs = [ php74 nodejs php74Packages.composer ];
           };
         }
       );
